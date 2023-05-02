@@ -1,4 +1,5 @@
 import { useLoaderData, Link } from "react-router-dom";
+import AddToCartButton from "./components/AddToCartButton";
 
 const tempData = [
         {
@@ -38,14 +39,15 @@ function Products() {
 
             <ul>
                 {
-                productData.map(({id, name, description, price, img}) => (
-                    <li key={id}> 
-                        <Link to={'/products/' + id}>
-                            <h2>{name}</h2>
-                            <image src={img} alt={name} />
-                            <p>{description}</p>
-                            <p>{price}</p>
+                productData.map((product) => (
+                    <li key={product.id}> 
+                        <Link to={'/products/' + product.id}>
+                            <h2>{product.name}</h2>
+                            <image src={product.img} alt={product.name} />
+                            <p>{product.description}</p>
+                            <p>{product.price}</p>
                         </Link>
+                        <AddToCartButton product={product} />
                     </li>
                 ))}
             </ul>
