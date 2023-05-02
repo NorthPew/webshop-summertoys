@@ -8,6 +8,7 @@ import Cart from "./routes/Cart";
 import AdminStart from "./routes/AdminStart";
 import EditProducts from "./routes/EditProducts";
 import EditUsers from "./routes/EditUsers";
+import Error from "./routes/Error"
 
 
 const router = createHashRouter([
