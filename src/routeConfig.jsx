@@ -1,8 +1,9 @@
 import { createHashRouter } from "react-router-dom";
 
-import Root from './routes/Root'
-import Start from "./routes/Start"
-import Products from "./routes/Products"
+import Root from "./routes/Root";
+import Start from "./routes/Start";
+import Products, {loader as productsLoader} from "./routes/Products";
+import Cart from "./routes/Cart";
 
 const router = createHashRouter([
     {
