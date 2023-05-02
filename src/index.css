@@ -1,17 +1,11 @@
+/* Head */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.25;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #fff;
   background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -19,16 +13,15 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
-body {
+html, body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
 }
 
 h1 {
@@ -36,33 +29,94 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 2.2em;
+  line-height: 1.1;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: .6em 1.25em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: #747bff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+/* Main */
+main {
+  height: 100%;
+  width: 100%;
+  float: left;
 }
+
+/* Nav */
+header {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  flex-flow: row wrap;
+  background-color: #272727;
+}
+
+nav {
+  display: flex;
+  flex-flow: row wrap;
+  height: inherit;
+}
+
+.logo-nav, .side-nav {
+  width: 25vw;
+  height: inherit;
+  display: inherit;
+  flex-flow: inherit;
+}
+
+.side-nav {
+  display: flex;
+  flex-flow: row-reverse wrap;
+}
+
+.main-nav {
+  display: flex;
+  width: 50vw;
+  height: inherit;
+  display: inherit;
+  justify-content: center;
+}
+
+nav a {
+  padding: 0em .75em;
+  height: inherit;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6.5px;
+  color: #f1f1f1;
+}
+
+nav a.active, nav a:hover {
+  background-color: #3c44d5;
+  color: #f1f1f1;
+}
+
+nav a:visited, a:link {
+  color: #f1f1f1;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #242424;
+    background-color: #fff;
   }
-  a:hover {
-    color: #747bff;
-  }
+
   button {
     background-color: #f9f9f9;
   }
