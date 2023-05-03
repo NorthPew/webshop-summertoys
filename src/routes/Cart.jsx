@@ -1,5 +1,11 @@
-import { CartContext } from "../routeConfig"
+import { CartContext } from "../main"
 import { useContext } from "react"
+
+const calculateSum = (cart) => {
+   let sum = cart.reduce((delsumma,item) => delsumma + item.price, 0)
+   sum = Math.round(sum)
+   return sum
+}
 
 function Cart() {
     const {cart, deleteFromCart} = useContext(CartContext)
@@ -11,7 +17,7 @@ function Cart() {
                     <li key={item.id}>{item.name}</li>
                 ))}
             </ul>
-            <p>Totala belopp: {cart.reduce((delsumma,item) => delsumma + item.price, 0)} kr</p>
+            <p>Totala belopp: {calculateSum(cart)} kr</p>
         </section>
     )
 }
