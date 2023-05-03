@@ -1,4 +1,5 @@
 import { createHashRouter } from "react-router-dom";
+import { createContext, useState} from 'react'
 
 import Root from "./routes/Root";
 import Start from "./routes/Start";
@@ -12,6 +13,24 @@ import EditProducts from "./routes/EditProducts";
 import EditUsers from "./routes/EditUsers";
 import Error from "./routes/Error"
 
+export const CartContext = createContext()
+
+
+const CartStuff = (product, productId) => {
+    const [cart, setCart] = useState([])
+
+    const addToCart = product => {
+        setCart((prevCart) => [...prevCart, product])
+    }
+
+    const deleteFromCart = productId => {
+    setCart((prevCart) => prevCart.filter((product) => product.id !== productId))
+    }
+
+    return { addToCart, deleteFromCart };
+}
+
+const { addToCart, deleteFromCart } = CartStuff();
 
 const router = createHashRouter([
     {
@@ -25,17 +44,26 @@ const router = createHashRouter([
         },
          {
             path: 'products',
-            element: <Products />,
+            element: 
+                <CartContext.Provider value={{addToCart, deleteFromCart}}>
+                <Products />
+                </CartContext.Provider>,
             loader: productsLoader
         },
         {
             path: 'products/:id',
-            element: <ProductDetails />,
+            element:
+            <CartContext.Provider value={{addToCart, deleteFromCart}}>
+                <ProductDetails />
+                </CartContext.Provider>,
             loader: productsLoader
         },
         {
             path: 'cart',
-            element: <Cart />
+            element: 
+            <CartContext.Provider value={{addToCart, deleteFromCart}}>
+                <Cart />
+            </CartContext.Provider>
         },
         {
             path: 'about-us',

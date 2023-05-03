@@ -7,21 +7,21 @@ const tempData = [
             "name": "Product 1",
             "description": "This is a short description of Product 1.",
             "price": 9.99,
-            "img": "https://example.com/fake-image-1.jpg"
+            "image": "https://example.com/fake-image-1.jpg"
         },
         {
             "id": 2,
             "name": "Product 2",
             "description": "This is a short description of Product 2.",
             "price": 19.99,
-            "img": "https://example.com/fake-image-2.jpg"
+            "image": "https://example.com/fake-image-2.jpg"
         },
         {
             "id": 3,
             "name": "Product 3",
             "description": "This is a short description of Product 3.",
             "price": 29.99,
-            "img": "https://example.com/fake-image-3.jpg"
+            "image": "https://example.com/fake-image-3.jpg"
         }
     ]
 
@@ -43,7 +43,7 @@ function Products() {
                     <li key={product.id}> 
                         <Link to={'/products/' + product.id}>
                             <h2>{product.name}</h2>
-                            <image src={product.img} alt={product.name} />
+                            <img src={product.image} alt={product.name} />
                             <p>{product.description}</p>
                             <p>{product.price}</p>
                         </Link>
