@@ -26,7 +26,21 @@ const tempData = [
             "description": "This is a short description of Product 3.",
             "price": 29.99,
             "image": "https://example.com/fake-image-3.jpg"
-        }
+        },
+        {
+            id: 4,
+            name: 'Product 4',
+            description: 'This is a short description of Product 4.',
+            price: 39.99,
+            image: 'https://example.com/fake-image-4.jpg'
+          },
+          {
+            id: 5,
+            name: 'Product 5',
+            description: 'This is a short description of Product 5.',
+            price: 49.99,
+            image: 'https://example.com/fake-image-5.jpg'
+          }
     ]
 
 
@@ -64,6 +78,77 @@ const TopSideContainer = styled.div `
     width: 50vw;
     flex-flow: row-reverse wrap;
     display: flex;
+    align-items: center;
+    padding-left: 1.75em;
+    gap: .75em;
+`
+
+const FilterSelect = styled.select `
+    border-radius: 6.5px;
+    border: .5px solid #373737;
+    height: 30px;
+`
+
+const SearchBox = styled.div `
+    height: 30px;
+    border-radius: 6.5px;
+    border: .5px solid #373737;
+    display: flex;
+    flex-flow: row wrap;
+`
+
+const SearchIcon = styled.div `
+    width: 1.5em;
+    height: 30px;
+    background-color: #373737;
+    border-radius: 0px 6.5px 6.5px 0px;
+    color: #fff;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+`
+
+const SearchTextIcon = styled.p `
+    margin: 0px;
+`
+
+const SearchBar = styled.input `
+    height: 26px;
+    border-radius: 6.5px;
+    border: 0px solid;
+`
+
+// Grid view
+
+const GridView = styled.ul `
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 220px);
+    list-style-type: none;
+    place-content: center;
+    row-gap: 35px;
+    column-gap: 10px;
+`
+
+// Product item
+
+const ProductItem = styled.li `
+    min-height: 338px;
+    width: 220px;
+`
+
+const ProductImage = styled.img `
+    width: 220px;
+    height: 300px;
+`
+
+const ProductName = styled.p `
+    font-size: 16px;
+    font-weight: lighter;
+`
+
+const ProductPrice = styled.p `
+    font-weight: 600;
+    font-size: 18px; 
 `
 
 function Products() {
@@ -81,41 +166,46 @@ function Products() {
             <TopMultiContainer>
                 <PageTitle>Produkter</PageTitle>
                 <TopSideContainer>
-                    <input type="text" placeholder="Sök" onChange={handleSearch}></input>
-                    <select>
+                    <SearchBox>
+                        <SearchBar type="text" placeholder="Sök" onChange={handleSearch}></SearchBar>
+                        <SearchIcon>
+                                <SearchTextIcon className="material-symbols-outlined">
+                                    search
+                                </SearchTextIcon>
+                        </SearchIcon>
+                    </SearchBox>
+                    <FilterSelect>
                         <option>Rekommendera</option>
                         <option>Namn</option>
                         <option>Lågt pris</option>
                         <option>Högst pris</option>
-                    </select>
+                    </FilterSelect>
                     <p>Sortera efter</p>
                 </TopSideContainer>
             </TopMultiContainer>
-            <ul>
+            <GridView>
                 {
                 filteredProducts ? filteredProducts.map((product) => (
-                    <li key={product.id}> 
+                    <ProductItem key={product.id}> 
                         <Link to={'/products/' + product.id}>
-                            <h2>{product.name}</h2>
-                            <img src={product.image} alt={product.name} />
-                            <p>{product.description}</p>
-                            <p>{product.price} kr</p>
+                            <ProductImage src={product.image} alt={product.name} />
+                            <ProductName>{product.name}</ProductName>
+                            <ProductPrice>{product.price} kr</ProductPrice>
                         </Link>
                         <AddToCartButton product={product} />
-                    </li>
+                    </ProductItem>
                 )) :
                 productData.map((product) => (
-                    <li key={product.id}> 
+                    <ProductItem key={product.id}> 
                     <Link to={'/products/' + product.id}>
-                        <h2>{product.name}</h2>
-                        <img src={product.image} alt={product.name} />
-                        <p>{product.description}</p>
-                        <p>{product.price} kr</p>
+                        <ProductImage src={product.image} alt={product.name} />
+                        <ProductName>{product.name}</ProductName>
+                        <ProductPrice>{product.price} kr</ProductPrice>
                     </Link>
                     <AddToCartButton product={product} />
-                </li>
+                </ProductItem>
                 ))}
-            </ul>
+            </GridView>
         </Wrapper>
     )
 }
