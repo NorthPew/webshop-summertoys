@@ -174,7 +174,7 @@ const ArticleValuesContainer = styled.div `
 `
 
 const ArticleAmountBox = styled.div `
-    width: 200px;
+    width: 250px;
     border-radius: 6.5px;
     height: 24px;
     display: flex;
@@ -200,7 +200,7 @@ const ArticleAmountMaxBtn = styled.button `
     display: grid;
     place-content: center;
     border-radius: 0px 6.5px 6.5px 0px;
-    margin-right: .35em;
+    margin-right: 1.75em;
 `
 
 const ArticleAmountInputField = styled.input `
