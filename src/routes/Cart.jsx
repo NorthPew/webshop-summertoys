@@ -100,6 +100,114 @@ const ShippingContainer = styled.div `
     justify-content: center;
 `
 
+// Overview (Table header)
+
+const OverviewBannerField = styled.div `
+    height: 50px;
+    width: 65vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    background-color: #F3F3F3;
+    font-size: 18px;
+    border-radius: 6.5px;
+`
+
+const OverviewIconDiv = styled.div `
+    height: 50px;
+    width: 50px;
+    display: grid;
+    place-content: center;
+`
+
+const OverviewTitleBox = styled.div `
+    height: 50px;
+`
+
+const OverviewTitle = styled.p `
+    font-size: 18px;
+    margin: 0px;
+    margin-top: .4em;
+`
+
+const OverviewTextsContainer = styled.div `
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 5em;
+    align-content: center;
+    margin-left: .75em;
+`
+
+const OverviewText = styled.p `
+    font-size: 18px;
+    margin: 0px;
+`
+
+const ArticlesBox = styled.ul `
+    max-width: 65vw;
+    background-color: #F3F3F3;
+    height: 100%;
+    border-radius: 6.5px;
+    padding-left: 0em;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+`
+
+const ArticleLi = styled.li `
+    display: flex;
+    flex-flow: row wrap;
+`
+
+const ArticleImg = styled.img `
+    width: 116px;
+    height: 120px;
+`
+
+const ArticleValuesContainer = styled.div `
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 5em;
+    margin-left: .75em;
+`
+
+const ArticleAmountBox = styled.div `
+    width: 144px;
+    border-radius: 6.5px;
+    height: 24px;
+    border: .5px solid #373737;
+    display: flex;
+    flex-flow: row wrap;
+`
+
+const ArticleAmountMinBtn = styled.button `
+    background-color: transparent;
+    border-right: .5px solid #373737;
+    height: 24px;
+    width: 1em;
+    display: grid;
+    place-content: center;
+    border-radius: 0px;
+`
+
+const ArticleAmountMaxBtn = styled.button `
+    background-color: transparent;
+    border-left: .5px solid #373737;
+    height: 24px;
+    width: 1em;
+    display: grid;
+    place-content: center;
+    border-radius: 0px;
+`
+
+const ArticleAmountInput = styled.input `
+    background-color: transparent;
+    width: 52px;
+    height: 20px;
+    display: flex;
+    justify-items: center;
+    outline: none;
+`
 
 function Cart() {
     const {cart, deleteFromCart} = useContext(CartContext)
@@ -127,11 +235,42 @@ function Cart() {
                     }
                 </ShippingContainer>
             </ShippingBannerCostField>
-            <ul>
+            <OverviewBannerField>
+                <OverviewIconDiv>
+                    <span className="material-symbols-outlined">overview_key</span>
+                </OverviewIconDiv>
+                <OverviewTitleBox>
+                    <OverviewTitle>Översikt</OverviewTitle>
+                </OverviewTitleBox>
+                <OverviewTextsContainer>
+                    <OverviewText>
+                            Artikel
+                        </OverviewText>
+                        <OverviewText>
+                            Pris
+                        </OverviewText>
+                        <OverviewText>
+                            Styck
+                        </OverviewText>
+                        <OverviewText>
+                            Totalt
+                        </OverviewText>
+                </OverviewTextsContainer>
+                    
+
+            </OverviewBannerField>
+            <ArticlesBox>
                 {cart.map(item => (
-                    <li key={item.id}>{item.name}</li>
+                    <ArticleLi key={item.id}>
+                        <ArticleImg src={item.image} />
+                        <ArticleValuesContainer><p>{item.name}</p><p>{item.price}kr</p>
+                        <ArticleAmountBox>
+                            <ArticleAmountMinBtn>-</ArticleAmountMinBtn>
+                            <ArticleAmountInput type="text" value="1"></ArticleAmountInput>
+                            <ArticleAmountMaxBtn>+</ArticleAmountMaxBtn>
+                        </ArticleAmountBox></ArticleValuesContainer></ArticleLi>
                 ))}
-            </ul>
+            </ArticlesBox>
             <p>Totala belopp: {calculateSum(cart)} kr</p>
         </Wrapper>
     )
