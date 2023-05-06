@@ -1,7 +1,7 @@
 import { useLoaderData, Link } from "react-router-dom";
 import AddToCartButton from "./components/AddToCartButton";
 import styled from "styled-components";
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 
 // Temp data
 
@@ -154,13 +154,45 @@ const ProductPrice = styled.p `
 function Products() {
     const productData = useLoaderData()
     const [searchValue, setSearchValue] = useState('');
+    const [sortOption, setSortOption] = useState('');
+    const [productsToDisplay, setProductsToDisplay] = useState([])
+    
+        // Search
+    
+    const filteredProducts = productData.filter((product) =>
+        product.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
     const handleSearch = (event) => {
         setSearchValue(event.target.value);
+        setProductsToDisplay(filteredProducts)
+    };
+
+      // Sort
+
+    let sortedProducts = [...productData];
+
+    if (sortOption === 'name') {
+        console.log('Sorting by name');
+        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        console.log('sortedProducts', sortedProducts);
+      } else if (sortOption === 'priceLowToHigh') {
+        console.log('Sorting by price (lowest to highest)');
+        sortedProducts.sort((a, b) => a.price - b.price);
+        console.log('sortedProducts', sortedProducts);
+      } else if (sortOption === 'priceHighToLow') {
+        console.log('Sorting by price (highest to lowest)');
+        sortedProducts.sort((a, b) => b.price - a.price);
+        console.log('sortedProducts', sortedProducts);
+      }
+
+      const handleSortChange = (event) => {
+        console.log('Sort option changed:', event.target.value);
+        setSortOption(event.target.value);
+        setProductsToDisplay(sortedProducts)
+        console.log('productsToDisplay', productsToDisplay);
       };
-    
-      const filteredProducts = productData.filter((product) =>
-        product.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
+
     return (
         <Wrapper>
             <TopMultiContainer>
@@ -174,18 +206,17 @@ function Products() {
                                 </SearchTextIcon>
                         </SearchIcon>
                     </SearchBox>
-                    <FilterSelect>
-                        <option>Rekommendera</option>
-                        <option>Namn</option>
-                        <option>Lågt pris</option>
-                        <option>Högst pris</option>
+                    <FilterSelect id="sort" onChange={handleSortChange}>
+                        <option value="recommend">Rekommendera</option>
+                        <option value="name">Namn</option>
+                        <option value="priceLowToHigh">Lågt pris</option>
+                        <option value="priceHighToLow">Högst pris</option>
                     </FilterSelect>
-                    <p>Sortera efter</p>
+                    <label htmlFor="sort">Sortera efter</label>
                 </TopSideContainer>
             </TopMultiContainer>
             <GridView>
-                {
-                filteredProducts ? filteredProducts.map((product) => (
+                {productsToDisplay.map((product) => (
                     <ProductItem key={product.id}> 
                         <Link to={'/products/' + product.id}>
                             <ProductImage src={product.image} alt={product.name} />
@@ -194,16 +225,6 @@ function Products() {
                         </Link>
                         <AddToCartButton product={product} />
                     </ProductItem>
-                )) :
-                productData.map((product) => (
-                    <ProductItem key={product.id}> 
-                    <Link to={'/products/' + product.id}>
-                        <ProductImage src={product.image} alt={product.name} />
-                        <ProductName>{product.name}</ProductName>
-                        <ProductPrice>{product.price} kr</ProductPrice>
-                    </Link>
-                    <AddToCartButton product={product} />
-                </ProductItem>
                 ))}
             </GridView>
         </Wrapper>
