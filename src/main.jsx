@@ -1,28 +1,9 @@
-import React, { useState, useContext, createContext } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routeConfig'
-
-const Wrapper = ({ children }) => {
-  const [cart, setCart] = useState([])
-
-  const addToCart = product => {
-    setCart((prevCart) => [...prevCart, product])
-  }
-  
-  const deleteFromCart = productId => {
-  setCart((prevCart) => prevCart.filter((product) => product.id !== productId))
-  }
-
-  return (
-      <CartContext.Provider value={{cart, setCart, addToCart, deleteFromCart}}>
-          {children}
-      </CartContext.Provider>
-  )
-}
-
-export const CartContext = createContext({cart: [], setCart: () => {}})
+import Wrapper from './Wrapper'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

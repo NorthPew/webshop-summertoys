@@ -1,4 +1,4 @@
-import { CartContext } from "../main"
+import { CartContext } from "../Wrapper"
 import { useContext } from "react"
 
 const calculateSum = (cart) => {

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext } from "../../main";
+import { CartContext } from "../../Wrapper";
 
 function AddToCartButton({product}) {
     const { addToCart } = useContext(CartContext);
