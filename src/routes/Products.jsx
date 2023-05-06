@@ -176,15 +176,15 @@ function Products() {
         console.log('Sorting by name');
         sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
         console.log('sortedProducts', sortedProducts);
-      } else if (sortOption === 'priceLowToHigh') {
+    } else if (sortOption === 'priceLowToHigh') {
         console.log('Sorting by price (lowest to highest)');
         sortedProducts.sort((a, b) => a.price - b.price);
         console.log('sortedProducts', sortedProducts);
-      } else if (sortOption === 'priceHighToLow') {
+    } else if (sortOption === 'priceHighToLow') {
         console.log('Sorting by price (highest to lowest)');
         sortedProducts.sort((a, b) => b.price - a.price);
         console.log('sortedProducts', sortedProducts);
-      }
+    }
 
       const handleSortChange = (event) => {
         console.log('Sort option changed:', event.target.value);
@@ -192,6 +192,13 @@ function Products() {
         setProductsToDisplay(sortedProducts)
         console.log('productsToDisplay', productsToDisplay);
       };
+
+
+    // When loading this page for the first time, this will run
+    if(productsToDisplay.length === 0 && searchValue !== null) {
+        setProductsToDisplay(filteredProducts)
+    }
+
 
     return (
         <Wrapper>
