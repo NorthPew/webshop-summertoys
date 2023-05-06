@@ -1,11 +1,7 @@
 /* Head */
 :root {
   font-family: 'Lato', sans-serif;
-  line-height: 1.25;
-
-  color-scheme: light dark;
-  color: #fff;
-  background-color: #242424;
+  line-height: 1;
 }
 
 a {
@@ -22,6 +18,7 @@ html, body {
   margin: 0;
   height: 100%;
   width: 100vw;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -54,6 +51,8 @@ main {
   height: 100%;
   width: 100%;
   float: left;
+  display: grid;
+  place-content: center;
 }
 
 /* Nav */
@@ -62,13 +61,17 @@ header {
   height: 48px;
   display: flex;
   flex-flow: row wrap;
-  background-color: #272727;
 }
 
 nav {
+  background-color: #272727;
   display: flex;
   flex-flow: row wrap;
   height: inherit;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
 }
 
 .logo-nav, .side-nav {
