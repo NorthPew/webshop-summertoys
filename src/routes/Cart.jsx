@@ -1,5 +1,5 @@
 import { CartContext } from "../Wrapper"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 
 // To calculate all product prices in cart
@@ -151,7 +151,9 @@ const ArticlesBox = styled.ul `
     padding-left: 0em;
     list-style-type: none;
     display: flex;
-    align-items: center;
+    justify-items: center;
+    flex-flow: column wrap;
+    gap: 15px;
 `
 
 const ArticleLi = styled.li `
@@ -172,45 +174,98 @@ const ArticleValuesContainer = styled.div `
 `
 
 const ArticleAmountBox = styled.div `
-    width: 144px;
+    width: 200px;
     border-radius: 6.5px;
     height: 24px;
-    border: .5px solid #373737;
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
 `
 
 const ArticleAmountMinBtn = styled.button `
     background-color: transparent;
-    border-right: .5px solid #373737;
+    border: .5px solid #373737;
     height: 24px;
     width: 1em;
     display: grid;
     place-content: center;
-    border-radius: 0px;
+    border-radius: 6.5px 0px 0px 6.5px;
 `
 
 const ArticleAmountMaxBtn = styled.button `
     background-color: transparent;
-    border-left: .5px solid #373737;
+    border: .5px solid #373737;
     height: 24px;
     width: 1em;
     display: grid;
     place-content: center;
-    border-radius: 0px;
+    border-radius: 0px 6.5px 6.5px 0px;
+    margin-right: .35em;
 `
 
-const ArticleAmountInput = styled.input `
+const ArticleAmountInputField = styled.input `
     background-color: transparent;
-    width: 52px;
+    width: 32px;
     height: 20px;
     display: flex;
     justify-items: center;
     outline: none;
+    border: .5px solid #373737;
 `
+
+
 
 function Cart() {
     const {cart, deleteFromCart} = useContext(CartContext)
+
+    // Article change amount
+
+    function ArticleTotalPrice({ id, pricePerUnit }) {
+        const [totalPrice, setTotalPrice] = useState(pricePerUnit);
+      
+        const handleValueChange = (value) => {
+          setTotalPrice(value * pricePerUnit);
+        };
+      
+        return (
+          <>
+            <ArticleAmountInput id={id} onValueChange={handleValueChange} />
+            <p>{totalPrice} kr</p>
+          </>
+        );
+      }
+
+    function ArticleAmountInput({item, id, onValueChange }) {
+        const [value, setValue] = useState(1);
+      
+        const handleDecrease = () => {
+        if (value <= 0) {
+            deleteFromCart(id)
+        }
+        if (value > 0) {
+            const newValue = value - 1;
+            setValue(newValue);
+            onValueChange(newValue);
+          }
+        };
+      
+        const handleIncrease = () => {
+          const newValue = value + 1;
+          setValue(newValue);
+          onValueChange(newValue);
+        };
+      
+        return (
+          <>
+            <ArticleAmountMinBtn id={`${id}-min`} onClick={handleDecrease}>-</ArticleAmountMinBtn>
+            <ArticleAmountInputField id={`${id}-input`} type="text" value={value} readOnly />
+            <ArticleAmountMaxBtn id={`${id}-max`} onClick={handleIncrease}>+</ArticleAmountMaxBtn>
+          </>
+        );
+      }
+
+     
+
     return (
         <Wrapper>
             <TitleContainer>
@@ -265,10 +320,10 @@ function Cart() {
                         <ArticleImg src={item.image} />
                         <ArticleValuesContainer><p>{item.name}</p><p>{item.price}kr</p>
                         <ArticleAmountBox>
-                            <ArticleAmountMinBtn>-</ArticleAmountMinBtn>
-                            <ArticleAmountInput type="text" value="1"></ArticleAmountInput>
-                            <ArticleAmountMaxBtn>+</ArticleAmountMaxBtn>
-                        </ArticleAmountBox></ArticleValuesContainer></ArticleLi>
+                            <ArticleTotalPrice id={item.id} item={item} pricePerUnit={item.price} />
+                        </ArticleAmountBox>
+                        
+                        </ArticleValuesContainer></ArticleLi>
                 ))}
             </ArticlesBox>
             <p>Totala belopp: {calculateSum(cart)} kr</p>

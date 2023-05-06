@@ -10,36 +10,36 @@ const tempData = [
             "id": 1,
             "name": "Product 1",
             "description": "This is a short description of Product 1.",
-            "price": 9.99,
+            "price": 9,
             "image": "https://example.com/fake-image-1.jpg"
         },
         {
             "id": 2,
             "name": "Product 2",
             "description": "This is a short description of Product 2.",
-            "price": 19.99,
+            "price": 19,
             "image": "https://example.com/fake-image-2.jpg"
         },
         {
             "id": 3,
             "name": "Product 3",
             "description": "This is a short description of Product 3.",
-            "price": 29.99,
+            "price": 29,
             "image": "https://example.com/fake-image-3.jpg"
         },
         {
-            id: 4,
-            name: 'Product 4',
-            description: 'This is a short description of Product 4.',
-            price: 39.99,
-            image: 'https://example.com/fake-image-4.jpg'
+            "id": 4,
+            "name": 'Product 4',
+            "description": 'This is a short description of Product 4.',
+            "price": 39,
+            "image": 'https://example.com/fake-image-4.jpg'
           },
           {
-            id: 5,
-            name: 'Product 5',
-            description: 'This is a short description of Product 5.',
-            price: 49.99,
-            image: 'https://example.com/fake-image-5.jpg'
+            "id": 5,
+            "name": 'Product 5',
+            "description": 'This is a short description of Product 5.',
+            "price": 49,
+            "image": 'https://example.com/fake-image-5.jpg'
           }
     ]
 
