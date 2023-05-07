@@ -2,6 +2,7 @@
 :root {
   font-family: 'Lato', sans-serif;
   line-height: 1;
+  box-sizing: border-box;
 }
 
 a {
@@ -19,6 +20,7 @@ html, body {
   height: 100%;
   width: 100vw;
   overflow-x: hidden;
+  padding: 0px;
 }
 
 h1 {

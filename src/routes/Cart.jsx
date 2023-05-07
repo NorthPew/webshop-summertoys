@@ -1,5 +1,6 @@
 import { CartContext } from "../Wrapper"
 import { useContext, useState } from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 // To calculate all product prices in cart
@@ -143,6 +144,8 @@ const OverviewText = styled.p `
     margin: 0px;
 `
 
+//  Article
+
 const ArticlesBox = styled.ul `
     max-width: calc(54vw - 7.5px);
     background-color: #F3F3F3;
@@ -216,6 +219,8 @@ const ArticleAmountInputField = styled.input `
     text-align: center;
 `
 
+// Containers
+
 const BannerFieldsContainer = styled.div `
     display: flex;
     flex-flow: column wrap;
@@ -229,6 +234,8 @@ const BannersAndSubTotalContainer = styled.div `
     display: flex;
     column-gap: 1vw;
 `
+
+// Subtotal
 
 const SubTotalBox = styled.div `
     border-radius: 6.5px;
@@ -271,6 +278,29 @@ const CheckoutButton = styled.button `
     font-weight: 600;
     border-radius: 0px;
     font-size: 22px;
+`
+
+// Empty cart
+const EmptyCartContainer = styled.div `
+    width: calc(85vw - 15px);
+    border-radius: 6.5px;
+    background-color: #F3F3F3;
+    height: 70vh;
+    display: grid;
+    place-content: center;
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+`
+
+const ShopNowButton = styled(Link) `
+    background-color: #242424;
+    color: #fff;
+    font-weight: 600;
+    padding: 1.5em 1em;
+    text-align: center;
+    &:hover {
+        color: #fff;
+    }
 `
 
 
@@ -331,80 +361,90 @@ function Cart() {
             <TitleContainer>
                 <PageTitle>Varukorg</PageTitle>
             </TitleContainer>
-            <BannersAndSubTotalContainer>
-                <BannerFieldsContainer>
-                    <ShipToCountryBannerField>
-                        <ShipToCountryIconDiv>
-                            <span className="material-symbols-outlined">flag</span>
-                        </ShipToCountryIconDiv>
-                        <ShipToCountryText>Skicka till Sverige</ShipToCountryText>
-                    </ShipToCountryBannerField>
-                    <ShippingBannerCostField>
-                        <ShippingIconDiv>
-                            <span className="material-symbols-outlined">local_shipping</span>
-                        </ShippingIconDiv>
-                        <ShippingContainer>
-                            <ShippingCostTitle>
-                                Fraktkostnad
-                            </ShippingCostTitle>
-                            {
-                                calculateSum(cart) > 99 ? <ShippingCostText>Berättigad till GRATIS FRAKT!</ShippingCostText> : <ShippingCostText>99kr frakt</ShippingCostText>
-                            }
-                        </ShippingContainer>
-                    </ShippingBannerCostField>
-                    <OverviewBannerField>
-                        <OverviewIconDiv>
-                            <span className="material-symbols-outlined">overview_key</span>
-                        </OverviewIconDiv>
-                        <OverviewTitleBox>
-                            <OverviewTitle>Översikt</OverviewTitle>
-                        </OverviewTitleBox>
-                        <OverviewTextsContainer>
-                            <OverviewText>
-                                    Artikel
-                                </OverviewText>
-                                <OverviewText>
-                                    Pris
-                                </OverviewText>
-                                <OverviewText>
-                                    Styck
-                                </OverviewText>
-                                <OverviewText>
-                                    Totalt
-                                </OverviewText>
-                        </OverviewTextsContainer>
-                    </OverviewBannerField>
-                </BannerFieldsContainer>
-                <SubTotalBox>
-                    <SubTotalTitle>Order sammanfattning</SubTotalTitle>
-                    <SubTotalTextsContainer>
-                        <SubTotalText>Delsumma</SubTotalText>
-                        <SubTotalPrice>
-                        {
-                                calculateSum(cart) <= 99 ? calculateSum(cart) + 99 + "kr" : calculateSum(cart) + "kr"
-                        }
-                        </SubTotalPrice>
-                    </SubTotalTextsContainer>
-                    <SubTotalBoxForButton>
-                        <CheckoutButton>
-                            Kassa nu
-                        </CheckoutButton>
-                    </SubTotalBoxForButton>
+            {
+                cart.length ? (
+                    <>
+                        <BannersAndSubTotalContainer>
+                            <BannerFieldsContainer>
+                                <ShipToCountryBannerField>
+                                    <ShipToCountryIconDiv>
+                                        <span className="material-symbols-outlined">flag</span>
+                                    </ShipToCountryIconDiv>
+                                    <ShipToCountryText>Skicka till Sverige</ShipToCountryText>
+                                </ShipToCountryBannerField>
+                                <ShippingBannerCostField>
+                                    <ShippingIconDiv>
+                                        <span className="material-symbols-outlined">local_shipping</span>
+                                    </ShippingIconDiv>
+                                    <ShippingContainer>
+                                        <ShippingCostTitle>
+                                            Fraktkostnad
+                                        </ShippingCostTitle>
+                                        {
+                                            calculateSum(cart) > 99 ? <ShippingCostText>Berättigad till GRATIS FRAKT!</ShippingCostText> : <ShippingCostText>99kr frakt</ShippingCostText>
+                                        }
+                                    </ShippingContainer>
+                                </ShippingBannerCostField>
+                                <OverviewBannerField>
+                                    <OverviewIconDiv>
+                                        <span className="material-symbols-outlined">overview_key</span>
+                                    </OverviewIconDiv>
+                                    <OverviewTitleBox>
+                                        <OverviewTitle>Översikt</OverviewTitle>
+                                    </OverviewTitleBox>
+                                    <OverviewTextsContainer>
+                                        <OverviewText>
+                                                Artikel
+                                            </OverviewText>
+                                            <OverviewText>
+                                                Pris
+                                            </OverviewText>
+                                            <OverviewText>
+                                                Styck
+                                            </OverviewText>
+                                            <OverviewText>
+                                                Totalt
+                                            </OverviewText>
+                                    </OverviewTextsContainer>
+                                </OverviewBannerField>
+                            </BannerFieldsContainer>
+                            <SubTotalBox>
+                                <SubTotalTitle>Order sammanfattning</SubTotalTitle>
+                                <SubTotalTextsContainer>
+                                    <SubTotalText>Delsumma</SubTotalText>
+                                    <SubTotalPrice>
+                                    {
+                                            calculateSum(cart) <= 99 ? calculateSum(cart) + 99 + "kr" : calculateSum(cart) + "kr"
+                                    }
+                                    </SubTotalPrice>
+                                </SubTotalTextsContainer>
+                                <SubTotalBoxForButton>
+                                    <CheckoutButton>
+                                        Kassa nu
+                                    </CheckoutButton>
+                                </SubTotalBoxForButton>
+            
+                            </SubTotalBox>
+                        </BannersAndSubTotalContainer>
+                        <ArticlesBox>
+                            {cart.map(item => (
+                                <ArticleLi key={item.id}>
+                                    <ArticleImg src={item.image} />
+                                    <ArticleValuesContainer><p>{item.name}</p><p>{item.price}kr</p>
+                                    <ArticleAmountBox>
+                                        <ArticleTotalPrice id={item.id} item={item} pricePerUnit={item.price} />
+                                    </ArticleAmountBox>
+                                    
+                                    </ArticleValuesContainer></ArticleLi>
+                            ))}
+                        </ArticlesBox>
+                    </> 
+                    ) : <EmptyCartContainer>
+                            <h1>Din varukorg är tom</h1>
+                            <ShopNowButton>SHOPPA NU</ShopNowButton>
+                        </EmptyCartContainer>
+            }
 
-                </SubTotalBox>
-            </BannersAndSubTotalContainer>
-            <ArticlesBox>
-                {cart.map(item => (
-                    <ArticleLi key={item.id}>
-                        <ArticleImg src={item.image} />
-                        <ArticleValuesContainer><p>{item.name}</p><p>{item.price}kr</p>
-                        <ArticleAmountBox>
-                            <ArticleTotalPrice id={item.id} item={item} pricePerUnit={item.price} />
-                        </ArticleAmountBox>
-                        
-                        </ArticleValuesContainer></ArticleLi>
-                ))}
-            </ArticlesBox>
         </Wrapper>
     )
 }
