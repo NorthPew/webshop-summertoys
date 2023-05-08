@@ -35,17 +35,16 @@ h2 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
   padding: .6em 1.25em;
   font-size: 1em;
   font-weight: 600;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #747bff;
+a.active {
+  background-color: #3c44d5;
+  color: #f1f1f1;
 }
 
 /* Main */
@@ -55,74 +54,4 @@ main {
   float: left;
   display: grid;
   place-content: center;
-}
-
-/* Nav */
-header {
-  width: 100%;
-  height: 48px;
-  display: flex;
-  flex-flow: row wrap;
-}
-
-nav {
-  background-color: #272727;
-  display: flex;
-  flex-flow: row wrap;
-  height: inherit;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100vw;
-}
-
-.logo-nav, .side-nav {
-  width: 25vw;
-  height: inherit;
-  display: inherit;
-  flex-flow: inherit;
-}
-
-.side-nav {
-  display: flex;
-  flex-flow: row-reverse wrap;
-}
-
-.main-nav {
-  display: flex;
-  width: 50vw;
-  height: inherit;
-  display: inherit;
-  justify-content: center;
-}
-
-nav a {
-  padding: 0em .75em;
-  height: inherit;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6.5px;
-  color: #f1f1f1;
-}
-
-nav a.active, nav a:hover {
-  background-color: #3c44d5;
-  color: #f1f1f1;
-}
-
-nav a:visited, a:link {
-  color: #f1f1f1;
-}
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #242424;
-    background-color: #fff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
 }
