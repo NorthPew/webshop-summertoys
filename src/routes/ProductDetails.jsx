@@ -52,8 +52,78 @@ const PageLinkBox = styled.div `
 const ProductImage = styled.img `
     width: 605px;
     max-height: 750px;
+    border-radius: 6.5px;
 `
 
+
+const ProductContainer = styled.div `
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+`
+
+const ProductNamePriceAddBox = styled.div `
+    display: flex;
+    flex-flow: column wrap;
+    row-gap: 7.5px;
+`
+
+const ProductName = styled.p `
+    font-size: 20px;
+    margin: 0px;
+`
+
+const ProductPrice = styled.p `
+    font-size: 26px;
+    font-weight: 600;
+    margin: .35em;
+    margin-left: 0em;
+`
+
+const ProductDescription = styled.p `
+    font-size: 18px;
+    font-weight: 500;
+`
+
+const FreeShippingBanner = styled.div `
+    min-height: calc(50px - 7.5px);
+    border-radius: 6.5px;
+    background-color: #F9F9F9;
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 7.5px;
+    padding-top: 7.5px;
+`
+
+const FreeShippingBox = styled.div `
+    display: flex;
+    flex-flow: column wrap;
+`
+
+const FreeShippingIconDiv = styled.div `
+    height: 50px;
+    width: 50px;
+    display: grid;
+    place-content: center;
+`
+
+const FreeShippingTitle = styled.p `
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px;
+`
+
+const FreeShippingText = styled.p `
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px;
+`
+
+const ProductDescriptionTitle = styled.h2 `
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px;
+`
 
 function ProductDetails() {
     const navigate = useNavigate()
@@ -79,10 +149,29 @@ function ProductDetails() {
                     <PageLinkBox><PageLink to='/'>Hem</PageLink> &gt; <PageLink to='/products'>Produkter</PageLink> &gt; <p>{product.name}</p>  </PageLinkBox>
                 </PageNavigation>
             </TitleContainer>
-            <ProductImage src={product.image} alt={product.name} />
-            <p>{product.name}</p>
-            <p>{product.price} kr</p>
-            <AddToCartButton product={product} />
+            <ProductContainer>
+                <ProductImage src={product.image} alt={product.name} />
+                <ProductNamePriceAddBox>
+                    <ProductName>{product.name}</ProductName>
+                    <ProductPrice>{product.price} kr</ProductPrice>
+                    <AddToCartButton product={product} />
+                    <FreeShippingBanner>
+                        <FreeShippingIconDiv>
+                            <span className="material-symbols-outlined">local_shipping</span>
+                        </FreeShippingIconDiv>
+                        <FreeShippingBox>
+                            <FreeShippingTitle>Gratis frakt</FreeShippingTitle>
+                            <FreeShippingText>Gratis leverans på beställningar över 99kr.</FreeShippingText>
+                        </FreeShippingBox>
+                    </FreeShippingBanner>
+                    <ProductDescriptionTitle>
+                        Beskrivning
+                    </ProductDescriptionTitle>
+                    <ProductDescription>{product.description}</ProductDescription>
+                </ProductNamePriceAddBox>
+
+            </ProductContainer>
+
         </Wrapper>
     )
 }
