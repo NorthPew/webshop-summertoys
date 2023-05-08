@@ -34,11 +34,6 @@ h2 {
 }
 
 button {
-  border-radius: 8px;
-  padding: .6em 1.25em;
-  font-size: 1em;
-  font-weight: 600;
-  background-color: #1a1a1a;
   cursor: pointer;
 }
 
