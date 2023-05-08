@@ -124,6 +124,17 @@ const ProductDescriptionTitle = styled.h2 `
     margin: 0px;
 `
 
+const PageTitle = styled.h1 `
+    font-size: 38px;
+    margin: 0px;
+`
+
+const WrongLinkBox = styled.div `
+    display: flex;
+    flex-flow: column wrap;
+`
+
+
 function ProductDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
@@ -132,11 +143,15 @@ function ProductDetails() {
 
     if (!product) {
         return (
-            <section>
-                <h1>Denna produkt finns inte i vårt lager.</h1>
-                <p>Det kan vara så att vi har slutat att sälja denna produkt eller har du skrivit in fel sökväg.</p>
-                <p>Kolla så att du har fått rätt länk eller navigera tillbaka till <Link to="/">startsidan</Link></p>
-            </section>
+            <Wrapper>
+                <TitleContainer>
+                    <PageTitle>Denna produkt finns inte i vårt lager.</PageTitle>
+                </TitleContainer>
+                <WrongLinkBox>
+                    <p>Det kan vara så att vi har slutat att sälja denna produkt eller har du skrivit in fel sökväg.</p>
+                    <p>Kolla så att du har fått rätt länk eller navigera tillbaka till <Link to="/">startsidan</Link></p>
+                </WrongLinkBox>
+            </Wrapper>
 
         )
     }
