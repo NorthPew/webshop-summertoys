@@ -91,7 +91,6 @@ const FreeShippingBanner = styled.div `
     background-color: #F9F9F9;
     display: flex;
     flex-flow: row wrap;
-    padding-left: 7.5px;
     padding-top: 7.5px;
 `
 
