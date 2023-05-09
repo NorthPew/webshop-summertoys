@@ -87,13 +87,208 @@ const ListElemBtn = styled.button `
     }
 `
 
-function CustomerSupport() {
-    // List Elem States
-    const [accountProblemSelected, setAccountProblemSelected] = useState(false)
+const FormBox = styled.form `
+    min-width: 320px;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: flex-start;
+    row-gap: 15px;
+`
 
-    // Account Issues
-    const [userRememberUsername, setUserRememberUsername] = useState(false)
-    const [userForgotUsername, setUserForgotUsername] = useState(false)
+const FormLabel = styled.label `
+    cursor: pointer;
+`
+
+const FormInput = styled.input `
+    border: .5px solid #373737;
+    border-radius: 6.5px;
+    min-width: 320px;
+    height: 26px;
+    padding: .25em;
+`
+
+const FlexBox = styled.div `
+    display: flex;
+    flex-flow: column wrap;
+    align-content: flex-start;
+`
+
+const TextArea = styled.textarea `
+    min-width: 320px;
+    min-height: 120px;
+    border-radius: 6.5px;
+    font-family: 'Lato', sans-serif;
+    padding: .25em;
+`
+
+const SubmitBtn = styled.button `
+    width: 60px;
+    border-radius: 6.5px;
+    background-color: #3C44D5;
+    color: #fff;
+    border: none;
+    height: 28px;
+
+    &:hover {
+        background-color: #454df3;
+    }
+`
+
+function CustomerSupport() {
+    // Category buttons
+    const [selectedShipping, setSelectedShipping] = useState(false)
+
+
+    // Form
+    const validCharLetters = "abcdefghijklmnopqrstuvwxyzåäö"
+
+    const validOrderLetters = "abcdefghijklmnopqrstuvwxyz0123456789#"
+
+    function isValidOrderNumber(order) {
+        for (let i = 0; i < order.length; i++) {
+            let character = order.charAt(i).toLowerCase()
+            if (!validOrderLetters.includes(character)) {
+                return [false, "Vänligen använd (#), siffror och engelska tecken."]
+            }
+        }
+        if (order.length < 10) {
+            return [false, "Behöver minst vara 9 tecken plus #."]
+        }
+        if (order.length > 10) {
+            return [false, "Får inte vara mer än 9 tecken!"]
+        }
+        return [true, ""]
+    }
+
+    function isValid(name) {
+        for (let i = 0; i < name.length; i++) {
+            let character = name.charAt(i).toLowerCase()
+            if (!validCharLetters.includes(character)) {
+                return [false, "Vänligen använd endast bokstäver."]
+            }
+        }
+        if (name.length < 2) {
+            return [false, "Behöver minst vara 2 tecken."]
+        }
+        return [true, ""]
+    }
+
+    function isValidMail(mail) {
+        const validMailChars = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/
+        if (!validMailChars.test(mail)) {
+            return [false, "Ej godkänt format"]
+        }
+        return [true, ""]
+    }
+
+    const [order, setOrder] = useState("")
+    const [name, setName] = useState("")
+	const [lastName, setLastName] = useState("")
+	const [email, setEmail] = useState("")
+
+    const [wrongOrder, setWrongOrder] = useState(false)
+	const [wrongName, setWrongName] = useState(false)
+	const [wrongLastName, setWrongLastName] = useState(false)
+	const [wrongEmailAddress, setWrongEmailAddress] = useState(false)
+
+	const [isVisible, setIsVisible] = useState(false)
+
+    const [isEmptyOrder, setIsEmptyOrder] = useState(false)
+	const [isEmptyName, setIsEmptyName] = useState(false)
+	const [isEmptyLastName, setIsEmptyLastName] = useState(false)
+	const [isEmptyEmailAddress, setIsEmptyEmailAddress] = useState(false)
+
+    const [isValidOrder, notValidOrder] = isValidOrderNumber(order)
+
+	const isValidClassOrder = wrongOrder
+		? isValidOrder
+			? "valid"
+			: "invalid"
+		: ""
+
+    const [isValidName, notValidName] = isValid(name)
+
+	const isValidClassName = wrongName
+		? isValidName
+			? "valid"
+			: "invalid"
+		: ""
+
+	const [isValidLastName, notValidLastName] = isValid(lastName)
+
+	const isValidClassLastName = wrongLastName
+		? isValidLastName
+			? "valid"
+			: "invalid"
+		: ""
+
+	const [isValidEmailAddress, notValidEmailAddress] = isValidMail(email)
+
+	const isValidClassEmail = wrongEmailAddress
+		? isValidEmailAddress
+			? "valid"
+			: "invalid"
+		: ""
+
+        function handleSubmit(event) {
+            event.preventDefault()
+            if (
+                isValidOrder &&
+                isValidName &&
+                isValidLastName &&
+                isValidEmailAddress
+            ) {
+                setOrder("")
+                setName("")
+                setLastName("")
+                setEmail("")
+                setIsEmptyName(true)
+                setIsEmptyLastName(true)
+                setIsEmptyEmailAddress(true)
+            } else if (name == "" || lastName == "" || email == "") {
+                setIsVisible(true)
+            }
+            setTimeout(() => {
+                setIsVisible(false)
+            }, 2000)
+        }
+
+        function handleOrderChange(e) {
+            setOrder(e.target.value.toUpperCase())
+            if (e.target.value === "") {
+                setIsEmptyOrder(true)
+            } else {
+                setIsEmptyOrder(false)
+            }
+        }
+
+        function handleNameChange(e) {
+            setName(e.target.value)
+            if (e.target.value === "") {
+                setIsEmptyName(true)
+            } else {
+                setIsEmptyName(false)
+            }
+        }
+    
+        function handleLastNameChange(e) {
+            setLastName(e.target.value)
+            if (e.target.value === "") {
+                setIsEmptyLastName(true)
+            } else {
+                setIsEmptyLastName(false)
+            }
+        }
+    
+        function handleEmailChange(e) {
+            setEmail(e.target.value)
+            if (e.target.value === "") {
+                setIsEmptyEmailAddress(true)
+            } else {
+                setIsEmptyEmailAddress(false)
+            }
+        }
 
     return (
         <Wrapper>
@@ -109,21 +304,79 @@ function CustomerSupport() {
             <InfoBox>
                 <InfoTitle>Välj från en kategori för att fortsätta</InfoTitle>
                 <InfoUlColumn>
-                    <li><ListElemBtn onClick={() => setAccountProblemSelected(!accountProblemSelected)}><span className="material-symbols-outlined">person</span>Kontoproblem</ListElemBtn></li>
-                    <li><ListElemBtn><span className="material-symbols-outlined">local_shipping</span>Spårning & leverans</ListElemBtn></li>
+                    <li><ListElemBtn onClick={() => setSelectedShipping(!selectedShipping)}><span className="material-symbols-outlined">local_shipping</span>Spårning & leverans</ListElemBtn></li>
                 </InfoUlColumn>
             </InfoBox>
             {
-                accountProblemSelected && (
-                    <form>
-                        <div>
-                            <h2>Kontoproblem</h2>
-                        <input onChange={() => setUserForgotUsername(!userForgotUsername)} id="forgotUsername" type="radio" name="username"></input><label htmlFor="forgotUsername">Vill du ha ett nytt användarnamn?</label>
-                        {userForgotUsername && <input type="text" placeholder="Email"></input>}
-                        <input onChange={() => setUserRememberUsername(!userRememberUsername)} id="rememberedUsername" type="radio" name="username"></input><label htmlFor="rememberedUsername">Vill du byta lösenord?</label>
-                        {userRememberUsername && <input type="text" placeholder="Användarnamn"></input>}
-                        </div>
-                    </form>
+                selectedShipping && (
+                    <FormBox>
+                        <FlexBox>
+                            <FormLabel htmlFor="orderInput">Beställningsnummer:</FormLabel>
+                            <FormInput id="orderInput" onChange={handleOrderChange} onBlur={() => setWrongOrder(true)} value={order} className={isValidClassOrder} maxLength={10} type="text" placeholder="#NNN-NNN-XXX"></FormInput>
+                            {isEmptyOrder ? "" : wrongOrder ? notValidOrder : ""}
+                            {isEmptyOrder
+							? ""
+							: wrongOrder
+							? isValidOrder
+								? "✔️"
+								: "❌"
+							: ""}
+                        </FlexBox>
+
+                        <FlexBox>
+                            <FormLabel htmlFor="nameInput">Namn:</FormLabel>
+                            <FormInput id="nameInput"  onChange={handleNameChange} onBlur={() => setWrongName(true)} value={name} className={isValidClassName} type="text" placeholder="Sebastian"></FormInput>
+                            {isEmptyName ? "" : wrongName ? notValidName : ""}
+                            {isEmptyName
+							? ""
+							: wrongName
+							? isValidName
+								? "✔️"
+								: "❌"
+							: ""}
+                        </FlexBox>
+
+                        <FlexBox>
+                            <FormLabel htmlFor="afterNameInput">Efternamn:</FormLabel>
+                            <FormInput id="afterNameInput" onChange={handleLastNameChange} onBlur={() => setWrongLastName(true)} value={lastName} className={isValidClassLastName}  type="text" placeholder="Hare"></FormInput>
+                            {isEmptyLastName
+							? ""
+							: wrongLastName
+							? notValidLastName
+							: ""}
+                            {isEmptyLastName
+							? ""
+							: wrongLastName
+							? isValidLastName
+								? "✔️"
+								: "❌"
+							: ""}
+                        </FlexBox>
+
+                        <FlexBox>
+                            <FormLabel htmlFor="emailInput">Epost-adress:</FormLabel>
+                            <FormInput id="emailInput" onChange={handleEmailChange} onBlur={() => setWrongEmailAddress(true)} value={email} className={isValidClassEmail} type="email" placeholder="sebastian.hare@email.com"></FormInput>
+                            {isEmptyEmailAddress ? "" : wrongEmailAddress ? notValidEmailAddress : ""}
+                            {isEmptyEmailAddress
+							? ""
+							: wrongEmailAddress
+							? isValidEmailAddress
+								? "✔️"
+								: "❌"
+							: ""}
+                        </FlexBox>
+
+
+                        <TextArea placeholder="Vad är ditt problem?"></TextArea>
+                        <FlexBox>
+                            {isVisible && (
+                                <div className="popupInvalid">
+                                    Vänligen fyll i alla fälten.
+                                </div>
+                            )}
+                        <SubmitBtn onClick={handleSubmit} type="submit">Skicka</SubmitBtn>
+                        </FlexBox>
+                    </FormBox>
                 )
             }
         </Wrapper>
