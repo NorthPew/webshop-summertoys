@@ -87,6 +87,8 @@ const ListElemBtn = styled.button `
     }
 `
 
+// Form
+
 const FormBox = styled.form `
     min-width: 320px;
     height: 100%;
@@ -135,6 +137,22 @@ const SubmitBtn = styled.button `
     }
 `
 
+const OrderInputBox = styled.div `
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    align-content: flex-start;
+    width: 310px;
+`
+const OrderHashTag = styled.p `
+    margin: 0px;
+`
+
+const OrderInput = styled(FormInput) `
+    min-width: 165px;
+`
+
+
 function CustomerSupport() {
     // Category buttons
     const [selectedShipping, setSelectedShipping] = useState(false)
@@ -152,16 +170,13 @@ function CustomerSupport() {
                 return [false, "Vänligen använd (#), siffror och engelska tecken."]
             }
         }
-        if (order.length < 10) {
-            return [false, "Behöver minst vara 9 tecken plus #."]
-        }
-        if (order.length > 10) {
-            return [false, "Får inte vara mer än 9 tecken!"]
+        if (order.length < 9) {
+            return [false, "Behöver minst vara 9 tecken."]
         }
         return [true, ""]
     }
 
-    function isValid(name) {
+    function isNameValid(name) {
         for (let i = 0; i < name.length; i++) {
             let character = name.charAt(i).toLowerCase()
             if (!validCharLetters.includes(character)) {
@@ -207,7 +222,7 @@ function CustomerSupport() {
 			: "invalid"
 		: ""
 
-    const [isValidName, notValidName] = isValid(name)
+    const [isValidName, notValidName] = isNameValid(name)
 
 	const isValidClassName = wrongName
 		? isValidName
@@ -215,7 +230,7 @@ function CustomerSupport() {
 			: "invalid"
 		: ""
 
-	const [isValidLastName, notValidLastName] = isValid(lastName)
+	const [isValidLastName, notValidLastName] = isNameValid(lastName)
 
 	const isValidClassLastName = wrongLastName
 		? isValidLastName
@@ -311,59 +326,32 @@ function CustomerSupport() {
                 selectedShipping && (
                     <FormBox>
                         <FlexBox>
-                            <FormLabel htmlFor="orderInput">Beställningsnummer:</FormLabel>
-                            <FormInput id="orderInput" onChange={handleOrderChange} onBlur={() => setWrongOrder(true)} value={order} className={isValidClassOrder} maxLength={10} type="text" placeholder="#NNN-NNN-XXX"></FormInput>
-                            {isEmptyOrder ? "" : wrongOrder ? notValidOrder : ""}
-                            {isEmptyOrder
-							? ""
-							: wrongOrder
-							? isValidOrder
-								? "✔️"
-								: "❌"
-							: ""}
+                            <FormLabel htmlFor="orderInput">Beställningsnummer: {isEmptyOrder ? null : wrongOrder ? isValidOrder ? "✔️" : "❌" : null}</FormLabel>
+                            <OrderInputBox>
+                                <OrderHashTag>#</OrderHashTag>
+                                <OrderInput id="orderInput" onChange={handleOrderChange} onBlur={() => setWrongOrder(true)} value={order} className={isValidClassOrder} maxLength={10} type="text" placeholder="NNNNNNXXX"></OrderInput></OrderInputBox>
+                            
+                            {isEmptyOrder ? null : wrongOrder ? notValidOrder : null}
                         </FlexBox>
 
                         <FlexBox>
-                            <FormLabel htmlFor="nameInput">Namn:</FormLabel>
+                            <FormLabel htmlFor="nameInput">Namn: {isEmptyName ? null : wrongName ? isValidName ? "✔️" : "❌" : null}</FormLabel>
                             <FormInput id="nameInput"  onChange={handleNameChange} onBlur={() => setWrongName(true)} value={name} className={isValidClassName} type="text" placeholder="Sebastian"></FormInput>
-                            {isEmptyName ? "" : wrongName ? notValidName : ""}
-                            {isEmptyName
-							? ""
-							: wrongName
-							? isValidName
-								? "✔️"
-								: "❌"
-							: ""}
+                            {isEmptyName ? null : wrongName ? notValidName : null}
+
                         </FlexBox>
 
                         <FlexBox>
-                            <FormLabel htmlFor="afterNameInput">Efternamn:</FormLabel>
+                            <FormLabel htmlFor="afterNameInput">Efternamn: {isEmptyLastName ? null : wrongLastName ? isValidLastName ? "✔️" : "❌" : null}</FormLabel>
                             <FormInput id="afterNameInput" onChange={handleLastNameChange} onBlur={() => setWrongLastName(true)} value={lastName} className={isValidClassLastName}  type="text" placeholder="Hare"></FormInput>
-                            {isEmptyLastName
-							? ""
-							: wrongLastName
-							? notValidLastName
-							: ""}
-                            {isEmptyLastName
-							? ""
-							: wrongLastName
-							? isValidLastName
-								? "✔️"
-								: "❌"
-							: ""}
+                            {isEmptyLastName ? null : wrongLastName ? notValidLastName : null}
                         </FlexBox>
 
                         <FlexBox>
-                            <FormLabel htmlFor="emailInput">Epost-adress:</FormLabel>
+                            <FormLabel htmlFor="emailInput">Epost-adress: {isEmptyEmailAddress ? null : wrongEmailAddress ? isValidEmailAddress ? "✔️" : "❌" : null}</FormLabel>
                             <FormInput id="emailInput" onChange={handleEmailChange} onBlur={() => setWrongEmailAddress(true)} value={email} className={isValidClassEmail} type="email" placeholder="sebastian.hare@email.com"></FormInput>
-                            {isEmptyEmailAddress ? "" : wrongEmailAddress ? notValidEmailAddress : ""}
-                            {isEmptyEmailAddress
-							? ""
-							: wrongEmailAddress
-							? isValidEmailAddress
-								? "✔️"
-								: "❌"
-							: ""}
+                            {isEmptyEmailAddress ? null : wrongEmailAddress ? notValidEmailAddress : null}
+
                         </FlexBox>
 
 
