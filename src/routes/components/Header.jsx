@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../../Wrapper";
 import styled from "styled-components";
 
 const NavPlaceholder = styled.header `
@@ -115,10 +116,34 @@ const NavMobileLinkBtn = styled(NavLinkBtn) `
     height: 48px;
 `
 
+const SideNavPlaceholder = styled.div `
+    width: 48px;
+    background-color: #242424;
+    height: calc(100vh - 48px);
+`
+
+const SideNavBody = styled(NavBody) `
+    width: 48px;
+    height: inherit;
+    top: 48px;
+`
+
+const SideNavLink = styled(NavLinkBtn) `
+    height: 48px;
+`
+
+const SideNavBox = styled(NavSideButtonsBox) `
+    height: 96px;
+`
+
 
 function Header() {
+    const {isLoggedIn, setIsLoggedIn} = useContext(CartContext)
+
     const [showMobileMainBox, setShowMobileMainBox] = useState(false)
     return (
+        <>
+        
         <NavPlaceholder>
             <NavBody>
                 <NavSideLogoBox>
@@ -130,10 +155,10 @@ function Header() {
                     <NavLinkBtn to='/customer-support'>Kundtjänst</NavLinkBtn>
                 </NavMainBox>
                 <NavSideButtonsBox>
-                    <ImposterNavLink onClick={() => setShowMobileMainBox(!showMobileMainBox)}><span className="material-symbols-outlined">menu</span></ImposterNavLink>
-                    <NavLinkBtn to="/cart"><span className="material-symbols-outlined">shopping_bag</span></NavLinkBtn>
-                    <NavLinkBtn to="/admin"><span className="material-symbols-outlined">admin_panel_settings</span></NavLinkBtn>
-                    <NavLinkBtn to="/user"><span className="material-symbols-outlined">login</span></NavLinkBtn>
+                    <ImposterNavLink onClick={() => setShowMobileMainBox(!showMobileMainBox)} title="Meny"><span className="material-symbols-outlined">menu</span></ImposterNavLink>
+                    <NavLinkBtn to="/cart" title="Varukorg"><span className="material-symbols-outlined">shopping_bag</span></NavLinkBtn>
+                    <NavLinkBtn to="/admin" title="Admin panel"><span className="material-symbols-outlined">admin_panel_settings</span></NavLinkBtn>
+                    <NavLinkBtn to="/user" title="Logga in"><span className="material-symbols-outlined">login</span></NavLinkBtn>
                 </NavSideButtonsBox>
             </NavBody>
             {showMobileMainBox && (
@@ -145,6 +170,16 @@ function Header() {
                 )
                 }
         </NavPlaceholder>
+        {isLoggedIn ? (<SideNavPlaceholder>
+            <SideNavBody>
+                <SideNavBox>
+                    <SideNavLink to='/edit-products' title="Redigera produkter"><span className="material-symbols-outlined">edit</span></SideNavLink>
+                    <SideNavLink to='/edit-users' title="Redigera användare"><span className="material-symbols-outlined">group_add</span></SideNavLink>
+                </SideNavBox>
+            </SideNavBody>
+        </SideNavPlaceholder>) : null}
+        </>
+
     )
 } 
 

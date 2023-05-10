@@ -165,7 +165,16 @@ function AdminStart() {
 
     return (
         <>
-			{isLoggedIn ? <h1>Du är inloggad</h1> : <Wrapper>
+			{isLoggedIn ? <>
+                <Wrapper>
+                    <TitleContainer>
+                        <PageTitle>
+                            Admin panel
+                        </PageTitle>
+                    </TitleContainer>
+                </Wrapper>
+            </>
+ : <Wrapper>
                 <TitleContainer>
                     <PageTitle>Admin login</PageTitle>
                 </TitleContainer>
