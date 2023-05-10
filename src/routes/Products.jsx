@@ -114,11 +114,13 @@ const ProductPrice = styled.p `
 function Products() {
     const productData = useLoaderData()
     const [searchValue, setSearchValue] = useState('');
-    const [sortOption, setSortOption] = useState('');
     const [productsToDisplay, setProductsToDisplay] = useState([])
     
     // Search
     
+
+
+    // State för search och sort option, lokal variabel products to display, product data behöver gå igenom några steg: 1. sökvärdet, 2. sortering, räkna ut det som en varaibel 
     const filteredProducts = productData.filter((product) =>
         product.name.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -130,25 +132,28 @@ function Products() {
 
       // Sort
 
-    let sortedProducts = [...productData];
-
-    if (sortOption === 'name') {
-        console.log('Sorting by name');
-        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-        console.log('sortedProducts', sortedProducts);
-    } else if (sortOption === 'priceLowToHigh') {
-        console.log('Sorting by price (lowest to highest)');
-        sortedProducts.sort((a, b) => a.price - b.price);
-        console.log('sortedProducts', sortedProducts);
-    } else if (sortOption === 'priceHighToLow') {
-        console.log('Sorting by price (highest to lowest)');
-        sortedProducts.sort((a, b) => b.price - a.price);
-        console.log('sortedProducts', sortedProducts);
-    }
-
       const handleSortChange = (event) => {
-        console.log('Sort option changed:', event.target.value);
-        setSortOption(event.target.value);
+          console.log('Sort option changed:', event.target.value);
+          let sortOption = event.target.value;
+
+          let sortedProducts = [...productData];
+
+          if (sortOption === 'nameAZ') {
+              console.log('Sorting by name');
+              sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+          } else if (sortOption === 'nameZA') {
+            console.log('Sorting by name');
+            sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+        } else if (sortOption === 'priceLowToHigh') {
+              console.log('Sorting by price (lowest to highest)');
+              sortedProducts.sort((a, b) => a.price - b.price);
+          } else if (sortOption === 'priceHighToLow') {
+              console.log('Sorting by price (highest to lowest)');
+              sortedProducts.sort((a, b) => b.price - a.price);
+          }
+          console.log('sortedProducts', sortedProducts);
+
+          // Product to display vanligt lokal variabel, gör allt utanför klickfuntioner
         setProductsToDisplay(sortedProducts)
         console.log('productsToDisplay', productsToDisplay);
       };
@@ -174,8 +179,8 @@ function Products() {
                         </SearchIcon>
                     </SearchBox>
                     <FilterSelect id="sort" onChange={handleSortChange}>
-                        <option value="recommend">Rekommendera</option>
-                        <option value="name">Namn</option>
+                        <option value="nameAZ">Namn (A till Ö)</option>
+                        <option value="nameZA">Namn (Ö till A)</option>
                         <option value="priceLowToHigh">Lågt pris</option>
                         <option value="priceHighToLow">Högst pris</option>
                     </FilterSelect>
