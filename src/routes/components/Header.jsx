@@ -134,7 +134,7 @@ const SideNavLink = styled(NavLinkBtn) `
 `
 
 const SideNavBox = styled(NavSideButtonsBox) `
-    height: 144px;
+    height: 96px;
 `
 
 
