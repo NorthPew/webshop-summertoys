@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+# {
+  display: inline-flex;    height: 100%;    width: 100%;    float: left;    flex-direction: column;    align-content: flex-end;    flex-wrap: wrap;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

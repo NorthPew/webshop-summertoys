@@ -133,7 +133,7 @@ const SideNavLink = styled(NavLinkBtn) `
 `
 
 const SideNavBox = styled(NavSideButtonsBox) `
-    height: 96px;
+    height: 144px;
 `
 
 
@@ -173,6 +173,7 @@ function Header() {
         {isLoggedIn ? (<SideNavPlaceholder>
             <SideNavBody>
                 <SideNavBox>
+                    <SideNavLink to='/admin' title="Admin Panel"><span className="material-symbols-outlined">admin_panel_settings</span></SideNavLink>
                     <SideNavLink to='/edit-products' title="Redigera produkter"><span className="material-symbols-outlined">edit</span></SideNavLink>
                     <SideNavLink to='/edit-users' title="Redigera användare"><span className="material-symbols-outlined">group_add</span></SideNavLink>
                 </SideNavBox>
