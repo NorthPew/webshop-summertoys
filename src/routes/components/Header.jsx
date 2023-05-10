@@ -120,6 +120,7 @@ const SideNavPlaceholder = styled.div `
     width: 48px;
     background-color: #242424;
     height: calc(100vh - 48px);
+    float: left;
 `
 
 const SideNavBody = styled(NavBody) `
@@ -173,7 +174,6 @@ function Header() {
         {isLoggedIn ? (<SideNavPlaceholder>
             <SideNavBody>
                 <SideNavBox>
-                    <SideNavLink to='/admin' title="Admin Panel"><span className="material-symbols-outlined">admin_panel_settings</span></SideNavLink>
                     <SideNavLink to='/edit-products' title="Redigera produkter"><span className="material-symbols-outlined">edit</span></SideNavLink>
                     <SideNavLink to='/edit-users' title="Redigera användare"><span className="material-symbols-outlined">group_add</span></SideNavLink>
                 </SideNavBox>
