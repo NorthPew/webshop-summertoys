@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "get": "node src/routes/data/getProducts.js",
+    "add": "node src/routes/data/addProducts.js",
+    "delete": "node src/routes/data/clearApi.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",

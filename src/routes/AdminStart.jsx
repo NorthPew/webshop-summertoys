@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { CartContext } from "../Wrapper"
 
 import imagePanel from "./images/lego.jpg"
+import { Outlet } from "react-router-dom"
 
 // Styled
 
@@ -172,6 +173,7 @@ function AdminStart() {
                             Admin panel
                         </PageTitle>
                     </TitleContainer>
+                    <Outlet />
                 </Wrapper>
             </>
  : <Wrapper>

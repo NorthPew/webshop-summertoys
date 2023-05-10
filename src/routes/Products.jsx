@@ -2,49 +2,9 @@ import { useLoaderData, Link } from "react-router-dom";
 import AddToCartButton from "./components/AddToCartButton";
 import styled from "styled-components";
 import react, { useState, useEffect } from "react";
+import { getProducts } from "./data/getProducts";
 
-// Temp data
-
-const tempData = [
-        {
-            "id": 1,
-            "name": "Product 1",
-            "description": "This is a short description of Product 1.",
-            "price": 9,
-            "image": "https://example.com/fake-image-1.jpg"
-        },
-        {
-            "id": 2,
-            "name": "Product 2",
-            "description": "This is a short description of Product 2.",
-            "price": 19,
-            "image": "https://example.com/fake-image-2.jpg"
-        },
-        {
-            "id": 3,
-            "name": "Product 3",
-            "description": "This is a short description of Product 3.",
-            "price": 29,
-            "image": "https://example.com/fake-image-3.jpg"
-        },
-        {
-            "id": 4,
-            "name": 'Product 4',
-            "description": 'This is a short description of Product 4.',
-            "price": 39,
-            "image": 'https://example.com/fake-image-4.jpg'
-          },
-          {
-            "id": 5,
-            "name": 'Product 5',
-            "description": 'This is a short description of Product 5.',
-            "price": 49,
-            "image": 'https://example.com/fake-image-5.jpg'
-          }
-    ]
-
-
-export const loader = () => tempData
+export const loader = () => getProducts();
 
 // Styled
 
@@ -157,7 +117,7 @@ function Products() {
     const [sortOption, setSortOption] = useState('');
     const [productsToDisplay, setProductsToDisplay] = useState([])
     
-        // Search
+    // Search
     
     const filteredProducts = productData.filter((product) =>
         product.name.toLowerCase().includes(searchValue.toLowerCase())

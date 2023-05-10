@@ -174,8 +174,8 @@ function Header() {
         {isLoggedIn ? (<SideNavPlaceholder>
             <SideNavBody>
                 <SideNavBox>
-                    <SideNavLink to='/edit-products' title="Redigera produkter"><span className="material-symbols-outlined">edit</span></SideNavLink>
-                    <SideNavLink to='/edit-users' title="Redigera användare"><span className="material-symbols-outlined">group_add</span></SideNavLink>
+                    <SideNavLink to='/admin/products' title="Redigera produkter"><span className="material-symbols-outlined">edit</span></SideNavLink>
+                    <SideNavLink to='/admin/users' title="Redigera användare"><span className="material-symbols-outlined">group_add</span></SideNavLink>
                 </SideNavBox>
             </SideNavBody>
         </SideNavPlaceholder>) : null}
