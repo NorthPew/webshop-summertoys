@@ -60,7 +60,7 @@ const Wrapper = styled.section `
 // Title & Input Fields (Multi container)
 
 const TopMultiContainer = styled.div `
-    width: 100%;
+    width: inherit;
     height: 64px;
     border-bottom: 1px solid #000;
     display: flex;

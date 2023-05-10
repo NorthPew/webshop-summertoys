@@ -6,6 +6,9 @@ const AddToCartBtn = styled.button `
   color: #fff;
   background-color: #242424;
   border-radius: 0px;
+  padding: .95em 1.75em;
+  font-weight: 800;
+  border: none;
   &:hover {
     color: #10a7dd;
   }
