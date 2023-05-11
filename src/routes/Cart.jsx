@@ -3,12 +3,7 @@ import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-// To calculate all product prices in cart
-const calculateSum = (cart) => {
-   let sum = cart.reduce((delsumma,item) => delsumma + item.price, 0)
-   sum = Math.round(sum)
-   return sum
-}
+
 
 
 
@@ -307,6 +302,15 @@ const ShopNowButton = styled(Link) `
 
 function Cart() {
     const {cart, deleteFromCart} = useContext(CartContext)
+    const [priceTotal, setPriceTotal] = useState(0)
+
+    // To calculate all product prices in cart
+    const calculateSum = (cart, value) => {
+        let sum = cart.reduce((delsumma,item) => delsumma + item.price * value, 0)
+        sum = Math.round(sum)
+        return sum
+ }
+
 
     // Article change amount
 
@@ -315,6 +319,9 @@ function Cart() {
       
         const handleValueChange = (value) => {
           setTotalPrice(value * pricePerUnit);
+
+         setPriceTotal(calculateSum(cart, value))
+         console.log('calculateSum(cart, value)', calculateSum(cart, value));
         };
       
         return (
@@ -414,7 +421,7 @@ function Cart() {
                                     <SubTotalText>Delsumma</SubTotalText>
                                     <SubTotalPrice>
                                     {
-                                            calculateSum(cart) <= 99 ? calculateSum(cart) + 99 + "kr" : calculateSum(cart) + "kr"
+                                            priceTotal + "kr"
                                     }
                                     </SubTotalPrice>
                                 </SubTotalTextsContainer>
