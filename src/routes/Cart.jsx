@@ -1,5 +1,5 @@
 import { CartContext } from "../Wrapper"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import {Wrapper, TitleContainer, PageTitle, ShipToCountryBannerField, ShipToCountryIconDiv, ShipToCountryText, ShippingBannerCostField, ShippingCostTitle, ShippingCostText, ShippingIconDiv, ShippingContainer, OverviewBannerField, OverviewIconDiv, OverviewTitleBox, OverviewTitle, OverviewTextsContainer, OverviewText, ArticlesBox, ArticleLi, ArticleImg, ArticleValuesContainer, ArticleAmountBox, ArticleAmountMinBtn, ArticleAmountMaxBtn, ArticleAmountInputField, BannerFieldsContainer, BannersAndSubTotalContainer, SubTotalBox, SubTotalTitle, SubTotalText, SubTotalTextsContainer, SubTotalPrice, SubTotalBoxForButton, CheckoutButton, EmptyCartContainer, ShopNowButton} from "./styles/cart"
 
@@ -9,44 +9,49 @@ import {Wrapper, TitleContainer, PageTitle, ShipToCountryBannerField, ShipToCoun
 //cart[2].quantity = itemQuantity;
 
 function Cart() {
-    const { cart, deleteFromCart } = useContext(CartContext)
-    const [priceTotal, setPriceTotal] = useState(0)
+    const { cart, deleteFromCart, setCart } = useContext(CartContext)
+    cart.forEach(item => {
+        item['quantity'] = 1
+        item['totalPrice'] = item.price * item.quantity
+    })
 
     // To calculate all product prices in cart
-    const calculateSum = (cart, value) => {
-        let sum = cart.reduce((delsumma, item) => delsumma + item.price * value, 0)
-        sum = Math.round(sum)
-        return sum
-    }
-
-
+    const totalPrice = cart.reduce(
+        (sum, item) => sum + item.totalPrice, 0
+    )
 
     // Article change amount
-
-    function ArticleTotalPrice({ item, id, pricePerUnit }) {
-        const [totalPrice, setTotalPrice] = useState(pricePerUnit);
+    
+    function ArticleAmountBox({item}) {
         const [quantity, setQuantity] = useState(1);
 
-        function handleChangeQuantity(item, add) {
+        function handleChangeQuantity(item, addOrReduce) {
             if (item.quantity) {
-                if (add) {
-                item.quantity = item.quantity + 1
-                } else if (!add && item.quantity > 0) {
-                item.quantity = item.quantity - 1
+                if (addOrReduce == true ) {
+                    item.quantity = item.quantity + 1
+
+                } else if (addOrReduce == false) {
+                    item.quantity = item.quantity - 1
                 }
-            } else {
+            }
+            /* else {
                 item.quantity = 2
             }
+            */
+            cart.forEach(item => {
+                item['totalPrice'] = item.price * item.quantity
+            })
+            console.log('cart', cart, 'totalPrice', totalPrice);
             setQuantity(item.quantity)
             // ändra cart item så den får en quantity-property på sig med
         }
 
         return (
             <>
-                <ArticleAmountMinBtn id={`${id}-min`} onClick={() => handleChangeQuantity(item, true)}>-</ArticleAmountMinBtn>
-                <ArticleAmountInputField id={`${id}-input`} type="text" value={quantity} readOnly />
-                <ArticleAmountMaxBtn id={`${id}-max`} onClick={() => handleChangeQuantity(item, false)}>+</ArticleAmountMaxBtn>
-                <p>{totalPrice} kr</p>
+                <ArticleAmountMinBtn id={`${item.id}-min`} onClick={() => handleChangeQuantity(item, false)}>-</ArticleAmountMinBtn>
+                <p id={`${item.id}-input`}>{quantity}</p>
+                <ArticleAmountMaxBtn id={`${item.id}-max`} onClick={() => handleChangeQuantity(item, true)}>+</ArticleAmountMaxBtn>
+                <p>{item.price * item.quantity} kr</p>
             </>
         );
     }
@@ -77,7 +82,7 @@ function Cart() {
                                             Fraktkostnad
                                         </ShippingCostTitle>
                                         {
-                                            calculateSum(cart) > 99 ? <ShippingCostText>Berättigad till GRATIS FRAKT!</ShippingCostText> : <ShippingCostText>99kr frakt</ShippingCostText>
+                                            totalPrice > 99 ? <ShippingCostText>Berättigad till GRATIS FRAKT!</ShippingCostText> : <ShippingCostText>99kr frakt</ShippingCostText>
                                         }
                                     </ShippingContainer>
                                 </ShippingBannerCostField>
@@ -109,9 +114,7 @@ function Cart() {
                                 <SubTotalTextsContainer>
                                     <SubTotalText>Delsumma</SubTotalText>
                                     <SubTotalPrice>
-                                        {
-                                            priceTotal + "kr"
-                                        }
+                                        {totalPrice}
                                     </SubTotalPrice>
                                 </SubTotalTextsContainer>
                                 <SubTotalBoxForButton>
@@ -127,10 +130,7 @@ function Cart() {
                                 <ArticleLi key={item.id}>
                                     <ArticleImg src={item.image} />
                                     <ArticleValuesContainer><p>{item.name}</p><p>{item.price}kr</p>
-                                        <ArticleAmountBox>
-                                            <ArticleTotalPrice id={item.id} item={item} pricePerUnit={item.price} />
-                                        </ArticleAmountBox>
-
+                                        <ArticleAmountBox item={item} />
                                     </ArticleValuesContainer></ArticleLi>
                             ))}
                         </ArticlesBox>
