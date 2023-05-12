@@ -9,7 +9,18 @@ const Wrapper = ({ children }) => {
 
   
     const addToCart = product => {
-      setCart((prevCart) => [...prevCart, product])
+
+      const productExistInCart = cart.find((item) => item.id === product.id)
+
+      if (productExistInCart) {
+        const changedProductAmount = cart.map((item) => item.id === product.id ? {...item, amount: item.amount + 1} : item)
+        setCart(changedProductAmount)
+        console.log("updated item with new amount");
+      } else {
+        setCart((prevCart) => [...prevCart, {...product, amount: 1}])
+        console.log("added new item");
+      }
+
     }
     
     const deleteFromCart = productId => {
