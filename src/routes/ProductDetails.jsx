@@ -164,7 +164,7 @@ function ProductDetails() {
                 </PageNavigation>
             </TitleContainer>
             <ProductContainer>
-                <ProductImage src={product.image} alt={product.name} />
+                <ProductImage src={product.picture} alt={product.name} />
                 <ProductNamePriceAddBox>
                     <ProductName>{product.name}</ProductName>
                     <ProductPrice>{product.price} kr</ProductPrice>

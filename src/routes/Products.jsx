@@ -174,7 +174,7 @@ function Products() {
                 {sortOrSearchToDisplay.map((product) => (
                     <ProductItem key={product.id}> 
                         <Link to={'/products/' + product.id}>
-                            <ProductImage src={product.image} alt={product.name} />
+                            <ProductImage src={product.picture} alt={product.name} />
                             <ProductName>{product.name}</ProductName>
                             <ProductPrice>{product.price} kr</ProductPrice>
                         </Link>

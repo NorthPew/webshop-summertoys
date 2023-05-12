@@ -1,10 +1,10 @@
 import { url, shopId } from './constants.js'
 
-async function addProduct(oneProduct) {
+async function deleteProduct(oneProduct) {
 	console.log("Deleting product...");
 	oneProduct.shopid = shopId
 	const options = {
-		method: 'DELETE',
+		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(oneProduct)
 	}
@@ -13,4 +13,4 @@ async function addProduct(oneProduct) {
 	console.log('Response from API: ', statusObject)
 }
 
-export default addProduct;
+export default deleteProduct;

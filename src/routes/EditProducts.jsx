@@ -1,10 +1,20 @@
 import { useLoaderData, Link } from "react-router-dom";
 import { getProducts } from "./data/getProducts";
 import styled from "styled-components";
+import { shopId } from "./data/constants";
 
 import deleteProduct from "./data/deleteProduct"
 
 export const loader = () => getProducts();
+
+const onDeleteProduct = (item) => {
+    const productDelete = {
+        action: 'delete-product',
+        productid: item.id,
+        shopid: shopId
+    }
+    deleteProduct(productDelete)
+}
 
 function EditProducts() {
     const productData = useLoaderData()
@@ -16,7 +26,7 @@ function EditProducts() {
             <p>{item.description}</p>
             <div>
                 <button>Ändra</button>
-                <button>Ta bort</button>
+                <button onClick={() => onDeleteProduct(item)}>Ta bort</button>
             </div>
         </li>
     ))}</ul>)
