@@ -110,7 +110,7 @@ function AdminStart() {
         if (userPassword.length < 4) {
             return [false, "Behöver minst vara 4 tecken."]
         }
-        if (userPassword != "mums") {
+        if (userPassword != "password") {
             console.log(userPassword);
             return [false, "Fel lösenord. Försök igen."]
         } else {
@@ -137,7 +137,7 @@ function AdminStart() {
 	const handleSubmit = (event) => {
 		event.preventDefault()
         console.log('userName', userName, ' userPassword', userPassword);
-		if (userName === "Admin" && userPassword === "mums") {
+		if (userName === "admin" && userPassword === "password") {
 			setIsLoggedIn(true)
             setUserName('')
             setUserPassword('')

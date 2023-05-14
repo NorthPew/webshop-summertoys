@@ -104,26 +104,92 @@ import { useState } from "react";
 export const loader = () => getProducts();
 
 function EditProducts() {
-    const [editingProduct, setEditingProduct] = useState({})
-    const [products, setProducts] = useState(useLoaderData())
+   // Form
 
-    const [productName, setProductName] = useState("")
-    const [productPrice, setProductPrice] = useState("")
-    const [productDescription, setProductDescription] = useState("")
-    const [productImage, setProductImage] = useState("")
+   const validChars = "abcdefghijklmnopqrstuvwxyzåäö1234567890 "
 
-    const handleChangeProductName = (e) => {
-        setProductName(e.target.value)
-    }
-    const handleChangeProductPrice = (e) => {
-        setProductPrice(e.target.value)
-    }
-    const handleChangeProductDescription = (e) => {
-        setProductDescription(e.target.value)
-    }
-    const handleChangeProductImage = (e) => {
-        setProductImage(e.target.value)
-    }
+   const validNumberChars = "0123456789"
+
+   function isTitleValid(title) {
+       for (let i = 0; i < title.length; i++) {
+           let character = title.charAt(i).toLowerCase()
+           if(!validChars.includes(character)) {
+               return [false, "Vänligen använd svenska tecken och siffror."]
+           }
+       }
+       if (title.length < 3) {
+           return [false, "Behöver minst vara 3 tecken."]
+       }
+       return [true, ""]
+   }
+
+   
+   function isPriceValid(price) {
+       for (let i = 0; i < price.length; i++) {
+           let character = price.charAt(i).toLowerCase()
+           if (!validNumberChars.includes(character)) {
+               return [false, "Vänligen använd endast siffror."]
+           }
+       }
+       if (price.length < 1) {
+           return [false, "Behöver minst vara ett tecken."]
+       }
+       return [true, ""]
+   }
+
+   function isDescriptionValid(description) {
+       if (description.length < 20) {
+           return [false, "Behöver minst vara 20 tecken."]
+       }
+       return [true, ""]
+   }
+
+   function isPictureValid(picture) {
+       const whiteSpaceCheck = /\s/
+       if (whiteSpaceCheck.test(picture)) {
+           return [false, "Godkänner ej mellanrum"]
+       }
+       if (picture.substring(0, 5) != "https") {
+           return [false, "Måste innehålla https!"]
+       }
+       return [true, ""]
+   }
+
+   const [productName, setProductName] = useState("")
+   const [productPrice, setProductPrice] = useState("")
+   const [productDescription, setProductDescription] = useState("")
+   const [productImage, setProductImage] = useState("")
+
+   const [wrongTitle, setWrongTitle] = useState(false)
+   const [wrongPrice, setWrongPrice] = useState(false)
+   const [wrongDescription, setWrongDescription] = useState(false)
+   const [wrongPicture, setWrongPicture] = useState(false)
+
+   const [isVisible, setIsVisible] = useState(false)
+
+   const [isEmptyTitle, setIsEmptyTitle] = useState(false)
+   const [isEmptyPrice, setIsEmptyPrice] = useState(false)
+   const [isEmptyDescription, setIsEmptyDescription] = useState(false)
+   const [isEmptyPicture, setIsEmptyPicture] = useState(false)
+
+   const [editingProduct, setEditingProduct] = useState({})
+   const [products, setProducts] = useState(useLoaderData())
+
+   const [isValidTitle, notValidTitle] = isTitleValid(productName)
+
+   const isValidClassTitle = wrongTitle ? isValidTitle ? "valid" : "invalid" : null
+
+   const [isValidPrice, notValidPrice] = isPriceValid(productPrice)
+
+   const isValidClassPrice = wrongPrice ? isValidPrice ? "valid" : "invalid" : null
+
+   const [isValidDescription, notValidDescription] = isDescriptionValid(productDescription)
+
+   const isValidClassDescription = wrongDescription ? isValidDescription ? "valid" : "invalid" : null
+
+   const [isValidPicture, notValidPicture] = isPictureValid(productImage)
+
+   const isValidClassPicture = wrongPicture ? isValidPicture ? "valid" : "invalid" : null
 
 
     const onDeleteProduct = (item) => {
@@ -141,7 +207,7 @@ function EditProducts() {
 
     const onSubmit = (event) => {
         event.preventDefault()
-        if (productName.length > 0 && productPrice.length > 0 && productDescription.length > 0 && productImage.length > 0) {
+        if (isValidTitle && isValidPrice && isValidDescription && isValidPicture) {
             const updatedProduct = {
                 action: 'edit-product',
                 productid: editingProduct.id,
@@ -151,11 +217,55 @@ function EditProducts() {
                 picture: productImage,
                 shopid: shopId
             }
-
-            
-
             editProduct(updatedProduct)
             setEditingProduct({})
+            setProductName("")
+            setProductPrice("")
+            setProductDescription("")
+            setProductImage("")
+            setIsEmptyTitle(true)
+            setIsEmptyPrice(true)
+            setIsEmptyDescription(true)
+            setIsEmptyPicture(true)
+        }
+        else if (productName.length == 0 && productPrice.length == 0 && productDescription.length == 0 && productPicture.length == 0) {
+            setIsVisible(true)
+        }
+        setTimeout(() => {
+            setIsVisible(false)
+        }, 2000)
+    }
+
+    const handleChangeProductName = (e) => {
+        setProductName(e.target.value)
+        if(e.target.value === "") {
+            setIsEmptyTitle(true)
+        } else {
+            setIsEmptyTitle(false)
+        }
+    }
+    const handleChangeProductPrice = (e) => {
+        setProductPrice(e.target.value)
+        if (e.target.value === "") {
+            setIsEmptyPrice(true)
+        } else {
+            setIsEmptyPrice(false)
+        }
+    }
+    const handleChangeProductDescription = (e) => {
+        setProductDescription(e.target.value)
+        if (e.target.value === "") {
+            setIsEmptyDescription(true) 
+        } else {
+            setIsEmptyDescription(false)
+        }
+    }
+    const handleChangeProductImage = (e) => {
+        setProductImage(e.target.value)
+        if (e.target.value === "") {
+            setIsEmptyPicture(true)
+        } else {
+            setIsEmptyPicture(false)
         }
     }
 
@@ -169,28 +279,37 @@ function EditProducts() {
                         <FormBox onSubmit={onSubmit}>
                             <p>Ändrar på: {item.name}</p>
                             <FlexBox>
-                                <FormLabel htmlFor={`${item.id}-name`}>Produktnamn: </FormLabel>
-                                <FormInput id={`${item.id}-name`} type="text" onChange={handleChangeProductName} placeholder={item.name} value={productName}></FormInput>
+                                <FormLabel htmlFor={`${item.id}-name`}>Produktnamn: {isEmptyTitle ? null : wrongTitle ? isValidTitle ? "✔️" : "❌" : null}</FormLabel>
+                                <FormInput id={`${item.id}-name`} type="text" className={isValidClassTitle} onChange={handleChangeProductName} onBlur={() => setWrongTitle(true)} placeholder={item.name} value={productName}></FormInput>
+                                {isEmptyTitle ? null : wrongTitle ? notValidTitle : null}
                                 <p>{item.name}</p>
                             </FlexBox>
                             <FlexBox>
-                                <FormLabel htmlFor={`${item.id}-price`}>Produktpris: </FormLabel>
-                                <FormInput id={`${item.id}-price`} type="text" onChange={handleChangeProductPrice} placeholder={item.price} value={productPrice}></FormInput>
+                                <FormLabel htmlFor={`${item.id}-price`}>Produktpris: {isEmptyPrice ? null : wrongPrice ? isValidPrice ? "✔️" : "❌" : null}</FormLabel>
+                                <FormInput id={`${item.id}-price`} type="text" className={isValidClassPrice} onChange={handleChangeProductPrice} onBlur={() => setWrongPrice(true)} placeholder={item.price} value={productPrice}></FormInput>
+                                {isEmptyPrice ? null : wrongPrice ? notValidPrice : null}
                                 <p>{item.price}</p>
                             </FlexBox>
                             <FlexBox>
-                                <FormLabel htmlFor={`${item.id}-description`}>Produktbeskrivning: </FormLabel>
-                                <FormInput id={`${item.id}-description`} onChange={handleChangeProductDescription} placeholder={item.description} type="text" value={productDescription}></FormInput>
+                                <FormLabel htmlFor={`${item.id}-description`}>Produktbeskrivning: {isEmptyDescription ? null : wrongDescription ? isValidDescription ? "✔️" : "❌" : null}</FormLabel>
+                                <FormInput id={`${item.id}-description`} className={isValidClassDescription} onChange={handleChangeProductDescription} onBlur={() => setWrongDescription(true)} placeholder={item.description} type="text" value={productDescription}></FormInput>
+                                {isEmptyDescription ? null : wrongDescription ? notValidDescription : null}
                                 <ProductTextBox>
                                     <ProductDescription>{item.description}</ProductDescription>
                                 </ProductTextBox>
                             </FlexBox>
                             <FlexBox>
-                                <FormLabel htmlFor={`${item.id}-picture`}>Produktbild: </FormLabel>
-                                <FormInput id={`${item.id}-picture`} onChange={handleChangeProductImage} placeholder={item.picture} type="text" value={productImage}></FormInput>
+                                <FormLabel htmlFor={`${item.id}-picture`}>Produktbild: {isEmptyPicture ? null : wrongPicture ? isValidPicture ? "✔️" : "❌" : null}</FormLabel>
+                                <FormInput id={`${item.id}-picture`} className={isValidClassPicture} onChange={handleChangeProductImage} onBlur={() => setWrongPicture(true)} placeholder={item.picture} type="text" value={productImage}></FormInput>
+                                {isEmptyPicture ? null : wrongPicture ? notValidPicture : null}
                                 <p>{item.picture}</p>
                             </FlexBox>
                             <ProductButtonsBox>
+                                {isVisible && (
+                                    <div>
+                                        Vänligen fyll i alla fälten.
+                                    </div>
+                                )}
                                 <ProductBtn type="submit">Slutföra</ProductBtn>
                                 <ProductBtn onClick={() => setEditingProduct({})}>Ångra</ProductBtn>
                             </ProductButtonsBox>

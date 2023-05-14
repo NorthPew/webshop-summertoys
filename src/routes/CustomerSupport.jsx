@@ -161,13 +161,13 @@ function CustomerSupport() {
     // Form
     const validCharLetters = "abcdefghijklmnopqrstuvwxyzåäö"
 
-    const validOrderLetters = "abcdefghijklmnopqrstuvwxyz0123456789#"
+    const validOrderLetters = "abcdefghijklmnopqrstuvwxyz0123456789"
 
     function isValidOrderNumber(order) {
         for (let i = 0; i < order.length; i++) {
             let character = order.charAt(i).toLowerCase()
             if (!validOrderLetters.includes(character)) {
-                return [false, "Vänligen använd (#), siffror och engelska tecken."]
+                return [false, "Vänligen använd siffror och engelska tecken."]
             }
         }
         if (order.length < 9) {
@@ -220,7 +220,7 @@ function CustomerSupport() {
 		? isValidOrder
 			? "valid"
 			: "invalid"
-		: ""
+		: null
 
     const [isValidName, notValidName] = isNameValid(name)
 
@@ -228,7 +228,7 @@ function CustomerSupport() {
 		? isValidName
 			? "valid"
 			: "invalid"
-		: ""
+		: null
 
 	const [isValidLastName, notValidLastName] = isNameValid(lastName)
 
@@ -236,7 +236,7 @@ function CustomerSupport() {
 		? isValidLastName
 			? "valid"
 			: "invalid"
-		: ""
+		: null
 
 	const [isValidEmailAddress, notValidEmailAddress] = isValidMail(email)
 
@@ -244,7 +244,7 @@ function CustomerSupport() {
 		? isValidEmailAddress
 			? "valid"
 			: "invalid"
-		: ""
+		: null
 
         function handleSubmit(event) {
             event.preventDefault()
@@ -258,6 +258,7 @@ function CustomerSupport() {
                 setName("")
                 setLastName("")
                 setEmail("")
+                setIsEmptyOrder(true)
                 setIsEmptyName(true)
                 setIsEmptyLastName(true)
                 setIsEmptyEmailAddress(true)
@@ -358,7 +359,7 @@ function CustomerSupport() {
                         <TextArea placeholder="Vad är ditt problem?"></TextArea>
                         <FlexBox>
                             {isVisible && (
-                                <div className="popupInvalid">
+                                <div>
                                     Vänligen fyll i alla fälten.
                                 </div>
                             )}
