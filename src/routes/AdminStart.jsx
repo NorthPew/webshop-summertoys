@@ -36,7 +36,7 @@ const PageTitle = styled.h1 `
 // Form
 
 const FormBox = styled.form `
-    max-width: 320px;
+    max-width: 260px;
     height: 100%;
     display: inline-flex;
     flex-flow: column wrap;
@@ -51,7 +51,7 @@ const FormLabel = styled.label `
 const FormInput = styled.input `
     border: .5px solid #373737;
     border-radius: 6.5px;
-    min-width: 320px;
+    min-width: 250px;
     height: 26px;
     padding: .25em;
 `
@@ -60,7 +60,7 @@ const FlexBox = styled.div `
     display: flex;
     flex-flow: column wrap;
     align-content: flex-start;
-    width: inherit;
+    width: 260px;
 `
 
 const SubmitBtn = styled.button `
