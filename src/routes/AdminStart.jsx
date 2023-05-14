@@ -5,6 +5,9 @@ import { CartContext } from "../Wrapper"
 import imagePanel from "./images/lego.jpg"
 import { Outlet } from "react-router-dom"
 
+import loginUser  from "./data/loginUser"
+import { shopId } from "./data/constants"
+
 // Styled
 
 // Wrapper
@@ -134,15 +137,24 @@ function AdminStart() {
 	
     const isValidClassPassword = wrongUserPassword ? isValidUserPassword ? "correct-password" : "incorrect-password" : null
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault()
         console.log('userName', userName, ' userPassword', userPassword);
-		if (userName === "admin" && userPassword === "password") {
+
+        const logInStatus = await loginUser({ shopid: shopId, username: userName, password: userPassword });
+
+		console.log(logInStatus);
+
+		if (logInStatus.loggedIn === "success") {
+			// allow login
 			setIsLoggedIn(true)
             setUserName('')
             setUserPassword('')
             setIsEmptyName(true)
             setIsEmptyPassword(true)
+		} else {
+			// prevent login and display error message
+			console.log("not allowed");
 		}
 	}
 
