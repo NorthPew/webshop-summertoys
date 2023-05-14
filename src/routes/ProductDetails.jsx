@@ -50,9 +50,14 @@ const PageLinkBox = styled.div `
 `
 
 const ProductImage = styled.img `
-    width: 605px;
+    min-width: 50%;
     max-height: 750px;
     border-radius: 6.5px;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+    }
 `
 
 
@@ -66,6 +71,12 @@ const ProductNamePriceAddBox = styled.div `
     display: flex;
     flex-flow: column wrap;
     row-gap: 7.5px;
+    width: 35vw;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+    }
 `
 
 const ProductName = styled.p `
@@ -86,12 +97,13 @@ const ProductDescription = styled.p `
 `
 
 const FreeShippingBanner = styled.div `
-    min-height: calc(50px - 7.5px);
+    min-height: calc(50px - 15px);
     border-radius: 6.5px;
     background-color: #F9F9F9;
     display: flex;
     flex-flow: row wrap;
     padding-top: 7.5px;
+    padding-bottom: 7.5px;
 `
 
 const FreeShippingBox = styled.div `

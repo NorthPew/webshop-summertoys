@@ -41,25 +41,6 @@ const InfoTitle = styled.h2 `
     margin: 0px;
 `
 
-const InfoUl = styled.ul `
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    list-style-type: circle;
-    padding-left: 0px;
-`
-
-const InfoListElemBtn = styled.button `
-    background-color: transparent;
-    border-radius: 6.5px;
-    padding: .25em 1.5em;
-    border: none;
-
-    &:hover {
-        background-color: #F9F9F9;
-    }
-`
-
 const InfoPhoneNumber = styled.p `
     font-size: 20px;
     font-weight: 400;
@@ -90,7 +71,7 @@ const ListElemBtn = styled.button `
 // Form
 
 const FormBox = styled.form `
-    min-width: 320px;
+    min-width: 260px;
     height: 100%;
     display: flex;
     flex-flow: column wrap;
@@ -105,7 +86,7 @@ const FormLabel = styled.label `
 const FormInput = styled.input `
     border: .5px solid #373737;
     border-radius: 6.5px;
-    min-width: 320px;
+    min-width: 260px;
     height: 26px;
     padding: .25em;
 `
@@ -114,10 +95,11 @@ const FlexBox = styled.div `
     display: flex;
     flex-flow: column wrap;
     align-content: flex-start;
+    min-width: 260px;
 `
 
 const TextArea = styled.textarea `
-    min-width: 320px;
+    min-width: 260px;
     min-height: 120px;
     border-radius: 6.5px;
     font-family: 'Lato', sans-serif;
@@ -355,8 +337,10 @@ function CustomerSupport() {
 
                         </FlexBox>
 
+                        <FlexBox>
+                            <TextArea placeholder="Vad är ditt problem?"></TextArea>
+                        </FlexBox>
 
-                        <TextArea placeholder="Vad är ditt problem?"></TextArea>
                         <FlexBox>
                             {isVisible && (
                                 <div>

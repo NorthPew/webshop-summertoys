@@ -1,7 +1,7 @@
 import { CartContext } from "../Wrapper"
 import { useContext, useEffect, useState } from "react"
 
-import {Wrapper, TitleContainer, PageTitle, ShipToCountryBannerField, ShipToCountryIconDiv, ShipToCountryText, ShippingBannerCostField, ShippingCostTitle, ShippingCostText, ShippingIconDiv, ShippingContainer, OverviewBannerField, OverviewIconDiv, OverviewTitleBox, OverviewTitle, OverviewTextsContainer, OverviewText, ArticlesBox, ArticleLi, ArticleImg, ArticleValuesContainer, ArticleAmountBox, ArticleAmountMinBtn, ArticleAmountMaxBtn, ArticleAmountInputField, BannerFieldsContainer, BannersAndSubTotalContainer, SubTotalBox, SubTotalTitle, SubTotalText, SubTotalTextsContainer, SubTotalPrice, SubTotalBoxForButton, CheckoutButton, EmptyCartContainer, ShopNowButton} from "./styles/cart"
+import {Wrapper, TitleContainer, PageTitle, ShipToCountryBannerField, ShipToCountryIconDiv, ShipToCountryText, ShippingBannerCostField, ShippingCostTitle, ShippingCostText, ShippingIconDiv, ShippingContainer, OverviewBannerField, OverviewIconDiv, OverviewTitleBox, OverviewTitle, OverviewTextsContainer, OverviewText, ArticlesBox, ArticleLi, ArticleImg, ArticleValuesContainer, ArticleAmountBox, ArticleAmountMinBtn, ArticleAmountMaxBtn, ArticleAmountP, BannerFieldsContainer, BannersAndSubTotalContainer, SubTotalBox, SubTotalTitle, SubTotalText, SubTotalTextsContainer, SubTotalPrice, SubTotalBoxForButton, CheckoutButton, EmptyCartContainer, ShopNowButton} from "./styles/cart"
 
 
 // När du ökar kvantitet på produkt, lägg till en ny prop på produkten i carten
@@ -103,7 +103,7 @@ function Cart() {
                                     <p>{item.name}</p><p>{item.price} kr</p>
                                     <ArticleAmountBox>
                                         <ArticleAmountMinBtn onClick={() => changeArticleAmount(false, item.id, index)}>-</ArticleAmountMinBtn>
-                                        <p>{item.amount}</p>
+                                        <ArticleAmountP>{item.amount}</ArticleAmountP>
                                         <ArticleAmountMaxBtn onClick={() => changeArticleAmount(true, item.id, index)}>+</ArticleAmountMaxBtn>
                                     </ArticleAmountBox>
                                     <p>{item.price * item.amount} kr</p>
@@ -116,7 +116,7 @@ function Cart() {
             ) : 
             <EmptyCartContainer>
                 <h1>Din varukorg är tom</h1>
-                <ShopNowButton>SHOPPA NU</ShopNowButton>
+                <ShopNowButton to="/products">SHOPPA NU</ShopNowButton>
             </EmptyCartContainer>
             
             }

@@ -152,7 +152,6 @@ function Header() {
                 </NavSideLogoBox>
                 <NavMainBox>
                     <NavLinkBtn to='/products'>Produkter</NavLinkBtn>
-                    <NavLinkBtn to='/about-us'>Om oss</NavLinkBtn>
                     <NavLinkBtn to='/customer-support'>Kundtjänst</NavLinkBtn>
                 </NavMainBox>
                 <NavSideButtonsBox>
@@ -165,7 +164,6 @@ function Header() {
             {showMobileMainBox && (
                 <NavMobileMainBox>
                     <NavMobileLinkBtn to='/products'>Produkter</NavMobileLinkBtn>
-                    <NavMobileLinkBtn to='/about-us'>Om oss</NavMobileLinkBtn>
                     <NavMobileLinkBtn to='/customer-support'>Kundtjänst</NavMobileLinkBtn>
                 </NavMobileMainBox>
                 )

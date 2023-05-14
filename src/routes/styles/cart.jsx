@@ -41,6 +41,11 @@ export const ShipToCountryBannerField = styled.div`
     display: flex;
     align-items: center;
     flex-flow: row wrap;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+    }
 `
 
 export const ShipToCountryIconDiv = styled.div`
@@ -66,6 +71,12 @@ export const ShippingBannerCostField = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: left;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+            min-height: 100px;
+    }
 `
 
 export const ShippingCostTitle = styled.p`
@@ -101,6 +112,10 @@ export const OverviewBannerField = styled.div`
     background-color: #F3F3F3;
     font-size: 18px;
     border-radius: 6.5px;
+
+    @media (orientation: portrait) {
+        display: none;
+    }
 `
 
 export const OverviewIconDiv = styled.div`
@@ -148,6 +163,10 @@ export const ArticlesBox = styled.ul`
     gap: 15px;
     padding-left: 7.5px;
     padding-top: 7.5px;
+
+    @media (orientation: portrait) {
+            max-width: calc(85vw - 7.5px);
+    }
 `
 
 export const ArticleLi = styled.li`
@@ -165,15 +184,29 @@ export const ArticleValuesContainer = styled.div`
     flex-flow: row wrap;
     column-gap: 5em;
     margin-left: calc(.75em - 7.5px);
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+            column-gap: 15px;
+    }
 `
 
 export const ArticleAmountBox = styled.div`
-    width: 250px;
-    border-radius: 6.5px;
     height: 24px;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+`
+
+export const ArticleAmountP = styled.p `
+    border-top: .5px solid #373737;
+    height: 22px;
+    width: 20px;
+    border-bottom: .5px solid #373737;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 export const ArticleAmountMinBtn = styled.button`
@@ -215,6 +248,11 @@ export const BannerFieldsContainer = styled.div`
     flex-flow: column wrap;
     row-gap: 15px;
     width: 54vw;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+    }
 `
 
 export const BannersAndSubTotalContainer = styled.div`
@@ -222,6 +260,9 @@ export const BannersAndSubTotalContainer = styled.div`
     height: 100%;
     display: flex;
     column-gap: 1vw;
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 15px;
 `
 
 // Subtotal
@@ -229,10 +270,15 @@ export const BannersAndSubTotalContainer = styled.div`
 export const SubTotalBox = styled.div`
     border-radius: 6.5px;
     min-height: 180px;
-    width: 30vw;
+    width: 28vw;
     background-color: #F3F3F3;
     padding-left: 7.5px;
     padding-right: 7.5px;
+
+    @media (orientation: portrait) {
+            flex-grow: 1;
+            width: 85vw;
+    }
 `
 
 export const SubTotalTitle = styled.h2`

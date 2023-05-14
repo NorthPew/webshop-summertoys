@@ -21,12 +21,13 @@ const Wrapper = styled.section `
 
 const TopMultiContainer = styled.div `
     width: inherit;
-    height: 64px;
+    min-height: 64px;
     border-bottom: 1px solid #000;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: center;
-
+    align-items: center;
+    padding-bottom: .5em;
 `
 
 const PageTitle = styled.h1 `
@@ -55,21 +56,6 @@ const SearchBox = styled.div `
     border: .5px solid #373737;
     display: flex;
     flex-flow: row wrap;
-`
-
-const SearchIcon = styled.div `
-    width: 1.5em;
-    height: 30px;
-    background-color: #373737;
-    border-radius: 0px 6.5px 6.5px 0px;
-    color: #fff;
-    cursor: pointer;
-    display: grid;
-    place-content: center;
-`
-
-const SearchTextIcon = styled.p `
-    margin: 0px;
 `
 
 const SearchBar = styled.input `
@@ -155,19 +141,16 @@ function Products() {
                 <TopSideContainer>
                     <SearchBox>
                         <SearchBar type="text" placeholder="Sök" onChange={handleSearch}></SearchBar>
-                        <SearchIcon>
-                                <SearchTextIcon className="material-symbols-outlined">
-                                    search
-                                </SearchTextIcon>
-                        </SearchIcon>
                     </SearchBox>
-                    <FilterSelect id="sort" onChange={handleSortChange}>
-                        <option value="nameAZ">Namn (A till Ö)</option>
-                        <option value="nameZA">Namn (Ö till A)</option>
-                        <option value="priceLowToHigh">Lågt pris</option>
-                        <option value="priceHighToLow">Högst pris</option>
-                    </FilterSelect>
-                    <label htmlFor="sort">Sortera efter</label>
+                    <div>
+                        <label htmlFor="sort">Sortera efter </label>
+                        <FilterSelect id="sort" onChange={handleSortChange}>
+                            <option value="nameAZ">Namn (A till Ö)</option>
+                            <option value="nameZA">Namn (Ö till A)</option>
+                            <option value="priceLowToHigh">Lågt pris</option>
+                            <option value="priceHighToLow">Högst pris</option>
+                        </FilterSelect>
+                    </div>
                 </TopSideContainer>
             </TopMultiContainer>
             <GridView>

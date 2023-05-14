@@ -18,11 +18,11 @@ const Wrapper = styled.section `
 
 const BannerField = styled.div `
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     border-radius: 6.5px;
     background-color: #EAEAEA;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     font-weight: 800;
     text-align: center;
     justify-content: center;
@@ -30,28 +30,31 @@ const BannerField = styled.div `
 
 const SidePartBannerLeft = styled.div `
     border-right: 1px solid #242424;
-    height: 34px;
+    min-height: 34px;
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
     align-items: center;
+    width: 33%;
 `
 
 const SidePartBannerRight = styled.div `
     border-left: 1px solid #242424;
-    height: 34px;
+    min-height: 34px;
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
     align-items: center;
+    width: 33%;
 `
 
 const SidePartBannerMid = styled.div `
-    height: 34px;
+    min-height: 34px;
     display: flex;
     justify-content: center;
     flex-flow: row wrap;
     align-items: center;
+    width: 33%;
 `
 
 const SideBannerTextElem = styled.p `
@@ -61,12 +64,12 @@ const SideBannerTextElem = styled.p `
 // Message
 
 const MessageField = styled.div `
-    height: 50px;
+    min-height: 50px;
     background-color: #1CC8EE;
     width: 100%;
     font-size: 32px;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: center;
     border-radius: 6.5px;
@@ -140,7 +143,7 @@ const WelcomeCodeText = styled.p `
 
 const TitleContainer = styled.div `
     width: 100%;
-    height: 46px;
+    min-height: 46px;
     display: grid;
     place-content: center;
 `
@@ -163,7 +166,7 @@ function Start() {
                     <SideBannerTextElem>Gratis Retur</SideBannerTextElem>
                     </SidePartBannerMid>
                 <SidePartBannerRight>
-                    <SideBannerTextElem>Sommarleksaker x Klarna</SideBannerTextElem>
+                    <SideBannerTextElem>Klarna</SideBannerTextElem>
                 </SidePartBannerRight>
             </BannerField>
             <MessageField>
