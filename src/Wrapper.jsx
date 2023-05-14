@@ -29,9 +29,11 @@ const Wrapper = ({ children }) => {
 
     // Logged in
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
   
     return (
-        <CartContext.Provider value={{cart, setIsLoggedIn, isLoggedIn, setCart, addToCart, deleteFromCart}}>
+        <CartContext.Provider value={{cart, setIsLoggedIn, isLoggedIn, isUserLoggedIn, setIsUserLoggedIn, setCart, addToCart, deleteFromCart}}>
             {children}
         </CartContext.Provider>
     )

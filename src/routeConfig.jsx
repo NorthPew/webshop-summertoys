@@ -9,6 +9,7 @@ import Cart from "./routes/Cart";
 import CustomerSupport from "./routes/CustomerSupport";
 import AdminStart from "./routes/AdminStart";
 import EditUsers from "./routes/EditUsers";
+import UserStart from "./routes/UserStart";
 import Error from "./routes/Error"
 import AddProduct from "./routes/AddProduct";
 import EditProducts from "./routes/EditProducts";
@@ -43,6 +44,10 @@ const router = createHashRouter([
         {
             path: 'customer-support',
             element: <CustomerSupport />
+        },
+        {
+            path: 'user',
+            element: <UserStart />
         },
         {
             path: 'admin',
