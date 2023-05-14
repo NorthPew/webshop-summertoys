@@ -168,7 +168,7 @@ function UserStart() {
                 <Wrapper>
                     <TitleContainer>
                         <PageTitle>
-                            Användare panel
+                            Panel
                         </PageTitle>
                     </TitleContainer>
                     <h2>
